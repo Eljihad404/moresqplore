@@ -36,7 +36,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Moresqplore"
+        android:theme="@style/Theme.MoresQplore"
         android:networkSecurityConfig="@xml/network_security_config"
         tools:targetApi="31">
 
@@ -47,7 +47,7 @@
 
         <!-- Landing Activity (New Launcher) -->
         <activity
-            android:name=".LandingActivity"
+            android:name=".LoginActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Moresqplore.NoActionBar">
@@ -56,6 +56,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".WelcomingActivity" />
 
         <!-- Main Activity -->
         <activity
@@ -76,6 +77,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
+        <activity android:name=".SelectCityActivity" />
 
         <!-- Place Details Activity -->
         <activity

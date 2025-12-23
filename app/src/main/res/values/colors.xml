@@ -7,7 +7,13 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-
+    <color name="morocco_white">#FFFFFF</color>
+    <color name="morocco_maroon">#800000</color>
+    <color name="morocco_brick_red">#B2382D</color>
+    <color name="morocco_deep_green">#006051</color>
+    <color name="morocco_teal">#07A88F</color>
+    <color name="morocco_gold">#FDB913</color>
+    <color name="text_grey">#757575</color>
     <!-- Modern App Colors -->
     <color name="primary">#2196F3</color>
     <color name="primary_dark">#1976D2</color>

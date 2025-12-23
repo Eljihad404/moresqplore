@@ -5,196 +5,179 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_background"
-    tools:context=".LandingActivity">
+    android:background="@color/morocco_white"
+    android:padding="24dp">
 
-    <!-- Top Section with Logo and Name -->
-    <LinearLayout
-        android:id="@+id/topSection"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:layout_marginTop="80dp"
+    <View
+        android:id="@+id/headerLine"
+        android:layout_width="80dp"
+        android:layout_height="4dp"
+        android:background="@color/morocco_gold"
+        android:layout_marginTop="16dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toEndOf="parent" />
 
-        <!-- App Logo -->
-        <ImageView
-            android:id="@+id/appLogo"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:src="@drawable/ic_launcher_foreground"
-            android:background="@drawable/circle_white_background"
-            android:padding="16dp"
-            android:elevation="8dp"
-            android:contentDescription="App Logo" />
+    <ImageView
+        android:id="@+id/appLogo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/moresqplore"
 
-        <!-- App Name -->
-        <TextView
-            android:id="@+id/appName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="MoresQplore"
-            android:textSize="36sp"
-            android:textStyle="bold"
-            android:textColor="@android:color/white"
-            android:fontFamily="sans-serif-medium"
-            android:layout_marginTop="24dp"
-            android:letterSpacing="0.05" />
 
-        <!-- Tagline -->
-        <TextView
-            android:id="@+id/appTagline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Discover Morocco's Hidden Gems"
-            android:textSize="16sp"
-            android:textColor="#E0E0E0"
-            android:layout_marginTop="8dp"
-            android:fontFamily="sans-serif-light" />
+        android:padding="16dp"
+        android:layout_marginTop="20dp"
 
-    </LinearLayout>
+        app:layout_constraintTop_toBottomOf="@id/headerLine"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:contentDescription="Logo" />
 
-    <!-- Middle Section with Features -->
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MoresQplore"
+        android:textColor="@color/morocco_maroon"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:layout_marginTop="12dp"
+        app:layout_constraintTop_toBottomOf="@id/appLogo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/tvSubtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome back, traveler"
+        android:textColor="@color/morocco_brick_red"
+        android:textSize="14sp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <LinearLayout
-        android:id="@+id/featuresSection"
+        android:id="@+id/inputSection"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="32dp"
-        android:layout_marginTop="40dp"
-        app:layout_constraintTop_toBottomOf="@id/topSection"
+        android:layout_marginTop="24dp"
+        app:layout_constraintTop_toBottomOf="@id/tvSubtitle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- Feature 1 -->
-        <LinearLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_marginBottom="20dp">
+            android:hint="Email Address"
+            app:boxStrokeColor="@color/morocco_teal"
+            app:hintTextColor="@color/morocco_deep_green"
+            app:startIconDrawable="@android:drawable/ic_dialog_email"
+            app:startIconTint="@color/morocco_deep_green"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-            <ImageView
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:src="@android:drawable/ic_dialog_map"
-                app:tint="@android:color/white" />
-
-            <TextView
-                android:layout_width="wrap_content"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etEmail"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Discover nearby attractions"
-                android:textSize="16sp"
-                android:textColor="@android:color/white"
-                android:layout_marginStart="16dp" />
-        </LinearLayout>
+                android:inputType="textEmailAddress"
+                android:textColor="@android:color/black"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Feature 2 -->
-        <LinearLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_marginBottom="20dp">
+            android:hint="Password"
+            android:layout_marginTop="12dp"
+            app:boxStrokeColor="@color/morocco_teal"
+            app:hintTextColor="@color/morocco_deep_green"
+            app:startIconDrawable="@android:drawable/ic_lock_idle_lock"
+            app:startIconTint="@color/morocco_deep_green"
+            app:endIconMode="password_toggle"
+            app:endIconTint="@color/morocco_brick_red"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-            <ImageView
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:src="@android:drawable/ic_menu_compass"
-                app:tint="@android:color/white" />
-
-            <TextView
-                android:layout_width="wrap_content"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPassword"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Smart trip planning"
-                android:textSize="16sp"
-                android:textColor="@android:color/white"
-                android:layout_marginStart="16dp" />
-        </LinearLayout>
+                android:inputType="textPassword"
+                android:textColor="@android:color/black"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Feature 3 -->
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/tvForgotPassword"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
-
-            <ImageView
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:src="@android:drawable/btn_star_big_on"
-                app:tint="@android:color/white" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Reviews from travelers"
-                android:textSize="16sp"
-                android:textColor="@android:color/white"
-                android:layout_marginStart="16dp" />
-        </LinearLayout>
-
+            android:text="Forgot Password?"
+            android:textColor="@color/morocco_brick_red"
+            android:layout_gravity="end"
+            android:layout_marginTop="8dp"
+            android:textStyle="bold"
+            android:clickable="true"
+            android:focusable="true" />
     </LinearLayout>
 
-    <!-- Bottom Section with Auth Buttons -->
-    <LinearLayout
-        android:id="@+id/authSection"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnLogin"
         android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:text="Log In"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:cornerRadius="12dp"
+        android:backgroundTint="@color/morocco_deep_green"
+        android:layout_marginTop="24dp"
+        app:layout_constraintTop_toBottomOf="@id/inputSection"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnGoogleSignIn"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:text="Continue with Google"
+        android:textColor="@color/morocco_maroon"
+        android:textSize="16sp"
+        app:icon="@drawable/ic_google"
+        app:iconGravity="textStart"
+        app:iconTint="@null"
+        app:cornerRadius="12dp"
+        app:strokeColor="@color/morocco_maroon"
+        app:strokeWidth="1dp"
+        android:backgroundTint="@color/morocco_white"
+        android:layout_marginTop="12dp"
+        app:layout_constraintTop_toBottomOf="@id/btnLogin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <LinearLayout
+        android:id="@+id/footerLayout"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="32dp"
-        android:layout_marginBottom="32dp"
+        android:orientation="horizontal"
+        android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- Google Sign In Button -->
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnGoogleSignIn"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:text="Continue with Google"
-            android:textColor="@color/text_primary"
-            android:textSize="16sp"
-            android:textAllCaps="false"
-            app:icon="@drawable/ic_google"
-            app:iconGravity="textStart"
-            app:iconPadding="12dp"
-            app:iconTint="@null"
-            app:cornerRadius="28dp"
-            app:backgroundTint="@android:color/white"
-            app:elevation="4dp"
-            android:layout_marginBottom="16dp" />
-
-        <!-- Skip Button -->
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnSkip"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:text="Continue as Guest"
-            android:textColor="@android:color/white"
-            android:textSize="16sp"
-            android:textAllCaps="false"
-            app:cornerRadius="28dp"
-            app:strokeColor="@android:color/white"
-            app:strokeWidth="2dp" />
-
-        <!-- Privacy Text -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="16dp"
-            android:text="By continuing, you agree to our Terms &amp; Privacy Policy"
-            android:textSize="12sp"
-            android:textColor="#B0B0B0"
-            android:gravity="center"
-            android:paddingHorizontal="16dp" />
+            android:text="Don't have an account? "
+            android:textColor="@color/text_grey" />
 
+        <TextView
+            android:id="@+id/tvCreateAccount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sign Up"
+            android:textColor="@color/morocco_deep_green"
+            android:textStyle="bold"
+            android:clickable="true"
+            android:focusable="true"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
