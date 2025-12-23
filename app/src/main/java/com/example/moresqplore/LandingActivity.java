@@ -137,7 +137,7 @@ public class LandingActivity extends AppCompatActivity {
     }
 
     private void navigateToMainActivity() {
-        Intent intent = new Intent(LandingActivity.this, MainActivity.class);
+        Intent intent = new Intent(LandingActivity.this, MainActivityOSM.class);
         startActivity(intent);
         finish();
     }
