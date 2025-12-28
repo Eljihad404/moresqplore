@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@color/morocco_cream">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <!-- Header -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/headerCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="@color/morocco_blue"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_atlas_assistant"
+                    app:tint="@color/white" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="12dp"
+                    android:text="AI Itinerary Builder"
+                    android:textColor="@color/white"
+                    android:textSize="24sp"
+                    android:fontFamily="sans-serif-medium" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="4dp"
+                    android:text="Let Atlas plan your perfect Morocco adventure"
+                    android:textColor="@color/morocco_cream"
+                    android:textSize="14sp"
+                    android:gravity="center" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Budget Section -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/budgetCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="2dp"
+            app:layout_constraintTop_toBottomOf="@id/headerCard">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="💰 Budget"
+                    android:textSize="18sp"
+                    android:textColor="@color/morocco_blue"
+                    android:fontFamily="sans-serif-medium" />
+
+                <TextView
+                    android:id="@+id/tvBudgetValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="2000 MAD"
+                    android:textSize="24sp"
+                    android:textColor="@color/morocco_terracotta"
+                    android:fontFamily="sans-serif-bold" />
+
+                <com.google.android.material.slider.Slider
+                    android:id="@+id/sliderBudget"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:valueFrom="500"
+                    android:valueTo="10000"
+                    android:stepSize="100"
+                    android:value="2000"
+                    app:thumbColor="@color/morocco_terracotta"
+                    app:trackColorActive="@color/morocco_terracotta"
+                    app:trackColorInactive="@color/morocco_sand" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Duration Section -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/durationCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="2dp"
+            app:layout_constraintTop_toBottomOf="@id/budgetCard">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="📅 Duration"
+                    android:textSize="18sp"
+                    android:textColor="@color/morocco_blue"
+                    android:fontFamily="sans-serif-medium" />
+
+                <TextView
+                    android:id="@+id/tvDurationValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="3 Days"
+                    android:textSize="24sp"
+                    android:textColor="@color/morocco_terracotta"
+                    android:fontFamily="sans-serif-bold" />
+
+                <com.google.android.material.slider.Slider
+                    android:id="@+id/sliderDuration"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:valueFrom="1"
+                    android:valueTo="14"
+                    android:stepSize="1"
+                    android:value="3"
+                    app:thumbColor="@color/morocco_blue"
+                    app:trackColorActive="@color/morocco_blue"
+                    app:trackColorInactive="@color/morocco_sand" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Starting City -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cityCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="2dp"
+            app:layout_constraintTop_toBottomOf="@id/durationCard">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🏙️ Starting City"
+                    android:textSize="18sp"
+                    android:textColor="@color/morocco_blue"
+                    android:fontFamily="sans-serif-medium" />
+
+                <Spinner
+                    android:id="@+id/spinnerCity"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@android:drawable/btn_dropdown"
+                    android:padding="12dp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Interests -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/interestsCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="2dp"
+            app:layout_constraintTop_toBottomOf="@id/cityCard">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="❤️ Your Interests"
+                    android:textSize="18sp"
+                    android:textColor="@color/morocco_blue"
+                    android:fontFamily="sans-serif-medium" />
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipGroupInterests"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:singleSelection="false"
+                    app:selectionRequired="false">
+
+                    <com.google.android.material.chip.Chip
+                        style="@style/Widget.Material3.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Historical"
+                        app:chipBackgroundColor="@color/chip_background_color"
+                        app:chipStrokeColor="@color/morocco_blue"
+                        app:chipStrokeWidth="1dp" />
+
+                    <com.google.android.material.chip.Chip
+                        style="@style/Widget.Material3.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Cultural"
+                        app:chipBackgroundColor="@color/chip_background_color"
+                        app:chipStrokeColor="@color/morocco_blue"
+                        app:chipStrokeWidth="1dp" />
+
+                    <com.google.android.material.chip.Chip
+                        style="@style/Widget.Material3.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Beach"
+                        app:chipBackgroundColor="@color/chip_background_color"
+                        app:chipStrokeColor="@color/morocco_blue"
+                        app:chipStrokeWidth="1dp" />
+
+                    <com.google.android.material.chip.Chip
+                        style="@style/Widget.Material3.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Food"
+                        app:chipBackgroundColor="@color/chip_background_color"
+                        app:chipStrokeColor="@color/morocco_blue"
+                        app:chipStrokeWidth="1dp" />
+
+                    <com.google.android.material.chip.Chip
+                        style="@style/Widget.Material3.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Adventure"
+                        app:chipBackgroundColor="@color/chip_background_color"
+                        app:chipStrokeColor="@color/morocco_blue"
+                        app:chipStrokeWidth="1dp" />
+
+                    <com.google.android.material.chip.Chip
+                        style="@style/Widget.Material3.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Shopping"
+                        app:chipBackgroundColor="@color/chip_background_color"
+                        app:chipStrokeColor="@color/morocco_blue"
+                        app:chipStrokeWidth="1dp" />
+                </com.google.android.material.chip.ChipGroup>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Travel Style -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/styleCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="2dp"
+            app:layout_constraintTop_toBottomOf="@id/interestsCard">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="✨ Travel Style"
+                    android:textSize="18sp"
+                    android:textColor="@color/morocco_blue"
+                    android:fontFamily="sans-serif-medium" />
+
+                <RadioGroup
+                    android:id="@+id/radioGroupStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp">
+
+                    <RadioButton
+                        android:id="@+id/radioBudget"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Budget - Affordable &amp; authentic"
+                        android:textSize="16sp"
+                        android:padding="8dp" />
+
+                    <RadioButton
+                        android:id="@+id/radioComfort"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Comfort - Balanced experience"
+                        android:textSize="16sp"
+                        android:padding="8dp"
+                        android:checked="true" />
+
+                    <RadioButton
+                        android:id="@+id/radioLuxury"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Luxury - Premium everything"
+                        android:textSize="16sp"
+                        android:padding="8dp" />
+                </RadioGroup>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Generate Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnGenerate"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="16dp"
+            android:text="Generate My Itinerary"
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            app:backgroundTint="@color/morocco_terracotta"
+            app:cornerRadius="12dp"
+            app:icon="@drawable/ic_atlas_assistant"
+            app:iconGravity="textStart"
+            app:iconTint="@color/white"
+            app:layout_constraintTop_toBottomOf="@id/styleCard"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

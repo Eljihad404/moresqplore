@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="12dp"
+    android:background="?attr/selectableItemBackground">
+
+    <!-- Time -->
+    <LinearLayout
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/tvActivityTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="09:00"
+            android:textSize="14sp"
+            android:textColor="@color/morocco_blue"
+            android:fontFamily="sans-serif-medium" />
+
+        <View
+            android:layout_width="2dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="4dp"
+            android:background="@color/morocco_sand" />
+    </LinearLayout>
+
+    <!-- Activity Details -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginStart="12dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvActivityName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Jardin Majorelle"
+            android:textSize="16sp"
+            android:textColor="@android:color/black"
+            android:fontFamily="sans-serif-medium" />
+
+        <TextView
+            android:id="@+id/tvActivityDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="Morning visit to beautiful gardens"
+            android:textSize="14sp"
+            android:textColor="@android:color/darker_gray" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipActivityType"
+                style="@style/Widget.Material3.Chip.Assist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Visit"
+                android:textSize="12sp"
+                app:chipMinHeight="24dp"
+                app:chipBackgroundColor="@color/morocco_cream" />
+
+            <TextView
+                android:id="@+id/tvActivityDuration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_gravity="center_vertical"
+                android:text="⏱ 2h"
+                android:textSize="12sp"
+                android:textColor="@android:color/darker_gray" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Cost -->
+    <TextView
+        android:id="@+id/tvActivityCost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:text="70 MAD"
+        android:textSize="14sp"
+        android:textColor="@color/morocco_terracotta"
+        android:fontFamily="sans-serif-bold" />
+
+</LinearLayout>

@@ -123,6 +123,19 @@
                 android:value=".Place" />
         </activity>
 
+        <!-- Itinerary Activities -->
+        <activity
+            android:name=".ui.itinerary.ItineraryInputActivity"
+            android:exported="false"
+            android:theme="@style/Theme.MoresQplore"
+            android:label="Plan Your Trip" />
+
+        <activity
+            android:name=".ui.itinerary.ItineraryResultActivity"
+            android:exported="false"
+            android:theme="@style/Theme.MoresQplore"
+            android:label="Your Itinerary" />
+
     </application>
 
 </manifest>
