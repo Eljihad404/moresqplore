@@ -1,6 +1,8 @@
 package com.example.moresqplore;
 
-public class Place {
+import java.io.Serializable;
+
+public class Place implements Serializable {
     private int id;
     private String name;
     private String description;

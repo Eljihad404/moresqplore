@@ -1,104 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    
+    <!-- Modern Moroccan Palette -->
+    <color name="morocco_terracotta">#E2725B</color>     <!-- Warm Earthy Red -->
+    <color name="morocco_blue">#005BB7</color>           <!-- Majorelle Blue -->
+    <color name="morocco_sand">#F4A460</color>           <!-- Desert Sand -->
+    <color name="morocco_green">#009900</color>          <!-- Islamic Green accents -->
+    <color name="morocco_cream">#FFFDD0</color>          <!-- Background warmth -->
+    
+    <!-- Legacy/Aliases for Compatibility -->
+    <color name="morocco_teal">@color/morocco_blue</color>
+    <color name="morocco_deep_green">#006400</color>
+    <color name="morocco_gold">@color/morocco_sand</color>
+    <color name="morocco_brick_red">@color/morocco_terracotta</color>
 
+    <color name="background">@color/morocco_cream</color>
+    <color name="surface">@color/white</color>
+    
+    <!-- Widget Colors -->
+    <!-- Removed duplicates that exist in res/color/ -->
+    
     <!-- Primary Brand Colors -->
-    <color name="primary">#2196F3</color>
-    <color name="primary_dark">#1976D2</color>
-    <color name="primary_light">#64B5F6</color>
-    <color name="primary_variant">#1565C0</color>
+    <color name="primary">@color/morocco_blue</color>
+    <color name="primary_dark">#004499</color>
+    <color name="secondary">@color/morocco_terracotta</color>
+    <color name="accent">@color/morocco_sand</color>
 
-    <!-- Accent Colors -->
-    <color name="accent">#FF9800</color>
-    <color name="accent_dark">#F57C00</color>
-    <color name="accent_light">#FFB74D</color>
-
-    <!-- Moroccan Theme Colors -->
-    <color name="moroccan_red">#C1272D</color>
-    <color name="moroccan_gold">#FFD700</color>
-    <color name="moroccan_green">#006233</color>
-    <color name="morocco_white">#FFFFFF</color>
-    <color name="morocco_maroon">#800000</color>
-    <color name="morocco_brick_red">#B2382D</color>
-    <color name="morocco_deep_green">#006051</color>
-    <color name="morocco_teal">#07A88F</color>
-    <color name="morocco_gold">#FDB913</color>
-
-    <!-- Background Colors -->
-    <color name="background">#F5F5F5</color>
-    <color name="surface">#FFFFFF</color>
-    <color name="card_background">#FFFFFF</color>
-
-    <!-- Text Colors -->
-    <color name="text_primary">#212121</color>
+    <color name="text_primary">#2D2D2D</color>
     <color name="text_secondary">#757575</color>
-    <color name="text_hint">#9E9E9E</color>
-    <color name="text_disabled">#BDBDBD</color>
-    <color name="text_on_primary">#FFFFFF</color>
-    <color name="text_on_accent">#FFFFFF</color>
-    <color name="text_grey">#757575</color>
 
-    <!-- On colors (for text/icons on colored backgrounds) -->
-    <color name="on_primary">#FFFFFF</color>
-    <color name="on_secondary">#000000</color>
-    <color name="on_background">#212121</color>
-    <color name="on_surface">#212121</color>
-    <color name="on_error">#FFFFFF</color>
-
-    <!-- Secondary color -->
-    <color name="secondary">#FDB913</color>
-
-    <!-- Divider and Border -->
-    <color name="divider">#E0E0E0</color>
-    <color name="border">#BDBDBD</color>
-
-    <!-- Status Colors -->
-    <color name="error">#D32F2F</color>
-    <color name="success">#388E3C</color>
-    <color name="warning">#F57C00</color>
-    <color name="info">#1976D2</color>
-
-    <!-- Rating Colors -->
-    <color name="rating_star">#FFC107</color>
-    <color name="rating_star_empty">#E0E0E0</color>
-
-    <!-- Map and Location -->
-    <color name="map_marker_primary">#2196F3</color>
-    <color name="map_marker_secondary">#FF9800</color>
-    <color name="location_accuracy">#402196F3</color>
-
-    <!-- Category Colors -->
-    <color name="category_monument">#2196F3</color>
-    <color name="category_restaurant">#FF9800</color>
-    <color name="category_beach">#07A88F</color>
-    <color name="category_garden">#4CAF50</color>
-    <color name="category_cultural">#9C27B0</color>
-    <color name="category_religious">#C1272D</color>
-
-    <!-- Overlays -->
-    <color name="overlay_dark">#80000000</color>
-    <color name="overlay_light">#40FFFFFF</color>
-    <color name="overlay_gradient_start">#00000000</color>
-    <color name="overlay_gradient_end">#80000000</color>
-
-    <!-- Chat Colors -->
-    <color name="chat_user_bubble">#2196F3</color>
-    <color name="chat_typing_dot">#FF9800</color>
-    <color name="chat_assistant_bubble">#F5F5F5</color>
-    <color name="chat_assistant_text">#212121</color>
-    <!-- Chip selected state -->
-    <color name="chip_selected">#07A88F</color>
-    <color name="chip_text_selected">#FFFFFF</color>
-
-    <!-- Chip unselected state -->
-    <color name="chip_unselected">#E0E0E0</color>
-    <color name="chip_text_unselected">#212121</color>
-
-    <!-- Standard Android Colors (keeping your originals) -->
+    <!-- Legacy Material Colors (Required for Night Theme compatibility) -->
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+
+    <!-- Restored Missing Colors from Layouts/Drawables -->
+    <color name="chip_selected">@color/morocco_blue</color>
+    <color name="chip_unselected">#E0E0E0</color>
+    <color name="chip_text_selected">@color/white</color>
+    <color name="chip_text_unselected">@color/text_primary</color>
+
+    <color name="chat_assistant_bubble">@color/morocco_cream</color>
+    <color name="chat_user_bubble">@color/morocco_blue</color>
+    <color name="divider">#1F000000</color>
+    <color name="chat_typing_dot">@color/text_secondary</color>
+    
+    <color name="overlay_gradient_start">#00000000</color>
+    <color name="overlay_gradient_end">#CC000000</color>
+    
+    <color name="text_hint">@color/text_secondary</color>
+    <color name="on_primary">@color/white</color>
+    <color name="text_grey">@color/text_secondary</color>
+    
+    <color name="morocco_white">@color/morocco_cream</color>
+    <color name="morocco_maroon">@color/morocco_terracotta</color>
 </resources>

@@ -2,13 +2,20 @@
 
     <!-- ==================== OLD THEMES ==================== -->
     <!-- Base application theme -->
-    <style name="Theme.MoresQplore" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/primary</item>
-        <item name="colorPrimaryDark">@color/primary_dark</item>
-        <item name="colorAccent">@color/accent</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
-        <item name="android:windowTranslucentStatus">true</item>
+    <style name="Theme.MoresQplore" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/morocco_blue</item>
+        <item name="colorPrimaryVariant">@color/primary_dark</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/morocco_terracotta</item>
+        <item name="colorSecondaryVariant">@color/morocco_sand</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="materialButtonStyle">@style/Widget.MoresQplore.Button</item>
+    </style>
+
+    <style name="Widget.MoresQplore.Button" parent="Widget.Material3.Button">
+        <item name="cornerRadius">12dp</item>
+        <item name="android:elevation">4dp</item>
     </style>
 
     <!-- No Action Bar Theme for Landing Page -->
@@ -24,13 +31,14 @@
     <!-- ==================== ATLAS EXPLORER THEME ==================== -->
     <style name="Theme.AtlasExplorer" parent="Theme.Material3.Light.NoActionBar">
         <!-- Primary brand colors -->
-        <item name="colorPrimary">@color/morocco_teal</item>
-        <item name="colorPrimaryDark">@color/morocco_deep_green</item>
-        <item name="colorPrimaryVariant">@color/morocco_deep_green</item>
+        <!-- Primary brand colors -->
+        <item name="colorPrimary">@color/morocco_blue</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorPrimaryVariant">@color/primary_dark</item>
 
         <!-- Secondary brand colors -->
-        <item name="colorSecondary">@color/morocco_gold</item>
-        <item name="colorSecondaryVariant">@color/morocco_brick_red</item>
+        <item name="colorSecondary">@color/morocco_sand</item>
+        <item name="colorSecondaryVariant">@color/morocco_terracotta</item>
 
         <!-- On colors (text/icons on surfaces) -->
         <item name="colorOnPrimary">@color/white</item>

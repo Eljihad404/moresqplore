@@ -17,3 +17,7 @@ local.properties
 local.properties
 google-services.json
 app/google-services.json
+build_log.txt
+build_log_2.txt
+build_log_3.txt
+build_error.txt

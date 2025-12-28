@@ -8,6 +8,9 @@ import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.View;
+import android.widget.HorizontalScrollView;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -59,6 +62,9 @@ public class MainActivityOSM extends AppCompatActivity {
     }
 
     private FloatingActionButton fabMapStyle;
+    private com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton fabChatAssistant;
+    private HorizontalScrollView categoryScrollView;
+    private ImageView filterIcon;
     private int currentMapStyle = 0;
 
     private void initializeViews() {
@@ -66,64 +72,89 @@ public class MainActivityOSM extends AppCompatActivity {
         fabMyLocation = findViewById(R.id.fabMyLocation);
         fabListView = findViewById(R.id.fabListView);
         fabMapStyle = findViewById(R.id.fabMapStyle);
-        fabChatAssistant = findViewById(R.id.fabChatAssistant); // Add this
+        fabChatAssistant = findViewById(R.id.fabChatAssistant);
 
+        // Initialize search and filter views
+        View searchCard = findViewById(R.id.searchCard);
+        filterIcon = findViewById(R.id.filterIcon);
+        categoryScrollView = findViewById(R.id.categoryScrollView);
     }
-    private FloatingActionButton fabChatAssistant;
 
     private void setupClickListeners() {
-        fabMyLocation.setOnClickListener(v -> { /* existing code */ });
+        // My Location button
+        fabMyLocation.setOnClickListener(v -> {
+            if (myLocationOverlay != null && myLocationOverlay.getMyLocation() != null) {
+                mapView.getController().animateTo(myLocationOverlay.getMyLocation());
+                mapView.getController().setZoom(15.0);
+            } else {
+                enableMyLocation();
+            }
+        });
 
-        fabListView.setOnClickListener(v ->
-                Toast.makeText(this, "Places List - Coming soon!", Toast.LENGTH_SHORT).show());
+        fabListView
+                .setOnClickListener(v -> Toast.makeText(this, "Places List - Coming soon!", Toast.LENGTH_SHORT).show());
 
         fabMapStyle.setOnClickListener(v -> switchMapStyle());
 
-        // Add this - opens AI Assistant chat
+        // AI Assistant chat
         fabChatAssistant.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivityOSM.this, ChatActivity.class);
             startActivity(intent);
         });
+
+        // Filter toggle
+        if (filterIcon != null) {
+            filterIcon.setOnClickListener(v -> {
+                if (categoryScrollView.getVisibility() == View.VISIBLE) {
+                    categoryScrollView.setVisibility(View.GONE);
+                } else {
+                    categoryScrollView.setVisibility(View.VISIBLE);
+                }
+            });
+        }
     }
+
     private void setupMap() {
         // OPTION 1: OpenTopoMap - Shows terrain, relief, labels (RECOMMENDED)
         mapView.setTileSource(new XYTileSource(
                 "OpenTopoMap",
                 0, 18, 256, ".png",
-                new String[]{
+                new String[] {
                         "https://a.tile.opentopomap.org/",
                         "https://b.tile.opentopomap.org/",
                         "https://c.tile.opentopomap.org/"
                 },
-                "© OpenTopoMap"
-        ));
+                "© OpenTopoMap"));
 
-    /* OPTION 2: Standard OSM with labels (similar to Google Maps)
-    mapView.setTileSource(TileSourceFactory.MAPNIK);
-    */
+        /*
+         * OPTION 2: Standard OSM with labels (similar to Google Maps)
+         * mapView.setTileSource(TileSourceFactory.MAPNIK);
+         */
 
-    /* OPTION 3: Humanitarian style - Clear labels, roads
-    mapView.setTileSource(new XYTileSource(
-        "HOT",
-        0, 18, 256, ".png",
-        new String[]{
-            "https://a.tile.openstreetmap.fr/hot/",
-            "https://b.tile.openstreetmap.fr/hot/"
-        },
-        "© OpenStreetMap contributors, Tiles style by Humanitarian OpenStreetMap Team"
-    ));
-    */
+        /*
+         * OPTION 3: Humanitarian style - Clear labels, roads
+         * mapView.setTileSource(new XYTileSource(
+         * "HOT",
+         * 0, 18, 256, ".png",
+         * new String[]{
+         * "https://a.tile.openstreetmap.fr/hot/",
+         * "https://b.tile.openstreetmap.fr/hot/"
+         * },
+         * "© OpenStreetMap contributors, Tiles style by Humanitarian OpenStreetMap Team"
+         * ));
+         */
 
-    /* OPTION 4: Satellite-like imagery
-    mapView.setTileSource(new XYTileSource(
-        "USGS_SAT",
-        0, 18, 256, ".jpg",
-        new String[]{
-            "https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryOnly/MapServer/tile/"
-        },
-        "© USGS"
-    ));
-    */
+        /*
+         * OPTION 4: Satellite-like imagery
+         * mapView.setTileSource(new XYTileSource(
+         * "USGS_SAT",
+         * 0, 18, 256, ".jpg",
+         * new String[]{
+         * "https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryOnly/MapServer/tile/"
+         * },
+         * "© USGS"
+         * ));
+         */
 
         mapView.setMultiTouchControls(true);
         mapView.setBuiltInZoomControls(false);
@@ -131,6 +162,7 @@ public class MainActivityOSM extends AppCompatActivity {
         GeoPoint startPoint = new GeoPoint(33.5731, -7.5898);
         mapView.getController().setCenter(startPoint);
     }
+
     private void switchMapStyle() {
         currentMapStyle = (currentMapStyle + 1) % 3;
 
@@ -138,9 +170,8 @@ public class MainActivityOSM extends AppCompatActivity {
             case 0: // Terrain with labels
                 mapView.setTileSource(new XYTileSource(
                         "OpenTopoMap", 0, 18, 256, ".png",
-                        new String[]{"https://a.tile.opentopomap.org/"},
-                        "© OpenTopoMap"
-                ));
+                        new String[] { "https://a.tile.opentopomap.org/" },
+                        "© OpenTopoMap"));
                 Toast.makeText(this, "Terrain Map", Toast.LENGTH_SHORT).show();
                 break;
 
@@ -152,15 +183,15 @@ public class MainActivityOSM extends AppCompatActivity {
             case 2: // Humanitarian (clear labels)
                 mapView.setTileSource(new XYTileSource(
                         "HOT", 0, 18, 256, ".png",
-                        new String[]{"https://a.tile.openstreetmap.fr/hot/"},
-                        "© OSM HOT"
-                ));
+                        new String[] { "https://a.tile.openstreetmap.fr/hot/" },
+                        "© OSM HOT"));
                 Toast.makeText(this, "Detailed Map", Toast.LENGTH_SHORT).show();
                 break;
         }
 
         mapView.invalidate();
     }
+
     private void createSamplePlaces() {
         // Casablanca
         Place hassanMosque = new Place(1, "Hassan II Mosque",
@@ -272,8 +303,11 @@ public class MainActivityOSM extends AppCompatActivity {
 
             // Click listener
             marker.setOnMarkerClickListener((m, map) -> {
-                m.showInfoWindow();
-                mapView.getController().animateTo(m.getPosition());
+                // Open Details Activity
+                Intent intent = new Intent(MainActivityOSM.this,
+                        com.example.moresqplore.ui.details.PlaceDetailsActivity.class);
+                intent.putExtra("PLACE_DATA", place);
+                startActivity(intent);
                 return true;
             });
 
@@ -284,10 +318,30 @@ public class MainActivityOSM extends AppCompatActivity {
     }
 
     private Drawable getMarkerIconForCategory(String category) {
-        // You can create custom marker icons for different categories
-        // For now, using default with different colors
-        Drawable drawable = ContextCompat.getDrawable(this,
-                org.osmdroid.library.R.drawable.marker_default);
+        // Create custom marker icons with Moroccan colors based on category
+        Drawable drawable = ContextCompat.getDrawable(this, R.drawable.ic_marker_morocco);
+
+        if (drawable != null) {
+            drawable = drawable.mutate(); // Make it mutable to change color
+
+            // Color code by category
+            if (category != null) {
+                if (category.contains("Historical") || category.contains("Archaeological")) {
+                    drawable.setTint(ContextCompat.getColor(this, R.color.morocco_terracotta));
+                } else if (category.contains("Cultural") || category.contains("Market")) {
+                    drawable.setTint(ContextCompat.getColor(this, R.color.morocco_blue));
+                } else if (category.contains("Garden") || category.contains("Scenic")) {
+                    drawable.setTint(ContextCompat.getColor(this, R.color.morocco_green));
+                } else if (category.contains("Coastal") || category.contains("Beach")) {
+                    drawable.setTint(ContextCompat.getColor(this, R.color.morocco_sand));
+                } else if (category.contains("Palace") || category.contains("Religious")) {
+                    drawable.setTint(ContextCompat.getColor(this, R.color.morocco_sand));
+                } else {
+                    drawable.setTint(ContextCompat.getColor(this, R.color.morocco_blue));
+                }
+            }
+        }
+
         return drawable;
     }
 
@@ -295,7 +349,7 @@ public class MainActivityOSM extends AppCompatActivity {
         if (ActivityCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,
-                    new String[]{
+                    new String[] {
                             Manifest.permission.ACCESS_FINE_LOCATION,
                             Manifest.permission.ACCESS_COARSE_LOCATION,
                             Manifest.permission.WRITE_EXTERNAL_STORAGE
@@ -328,7 +382,7 @@ public class MainActivityOSM extends AppCompatActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
+            @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {

@@ -78,7 +78,14 @@
                 android:value=".MainActivityOSM" />
         </activity>
 
-        <!-- Places List Activity (we'll create this next) -->
+        <!-- Place Details Activity (New) -->
+        <activity
+            android:name=".ui.details.PlaceDetailsActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Moresqplore.NoActionBar" />
+
+        <!-- Places List Activity -->
         <activity
             android:name=".Place"
             android:exported="false"
@@ -90,18 +97,6 @@
                 android:value=".MainActivity" />
         </activity>
         <activity android:name=".SelectCityActivity" />
-
-        <!-- Place Details Activity -->
-        <activity
-            android:name=".Place"
-            android:exported="false"
-            android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait"
-            tools:ignore="DuplicateActivity,Instantiatable">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
-        </activity>
 
         <!-- Trip Planner Activity -->
         <activity

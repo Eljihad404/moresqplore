@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/morocco_cream">
 
     <!-- OSM Map View -->
     <org.osmdroid.views.MapView
@@ -11,87 +12,185 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <!-- Search Bar -->
-    <androidx.cardview.widget.CardView
-        android:id="@+id/searchCard"
+    <!-- Top Bar with Moroccan Design -->
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        app:cardCornerRadius="28dp"
-        app:cardElevation="8dp">
+        app:cardCornerRadius="24dp"
+        app:cardElevation="8dp"
+        app:cardBackgroundColor="@color/white"
+        app:strokeColor="@color/morocco_sand"
+        app:strokeWidth="2dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="12dp"
-            android:gravity="center_vertical">
+            android:orientation="vertical"
+            android:padding="4dp">
 
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="12dp"
-                android:src="@android:drawable/ic_menu_search"
-                app:tint="#757575" />
+            <!-- Search Bar -->
+            <LinearLayout
+                android:id="@+id/searchCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="12dp"
+                android:gravity="center_vertical">
 
-            <EditText
-                android:id="@+id/searchEditText"
-                android:layout_width="0dp"
-                android:layout_height="48dp"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:hint="Search places..."
-                android:textSize="16sp" />
+                <ImageView
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="12dp"
+                    android:src="@android:drawable/ic_menu_search"
+                    app:tint="@color/morocco_blue" />
+
+                <EditText
+                    android:id="@+id/searchEditText"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:hint="Discover Morocco..."
+                    android:textColorHint="@color/text_secondary"
+                    android:textColor="@color/text_primary"
+                    android:textSize="16sp"
+                    android:fontFamily="sans-serif-medium" />
+
+                <ImageView
+                    android:id="@+id/filterIcon"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_marginEnd="8dp"
+                    android:src="@android:drawable/ic_menu_sort_by_size"
+                    app:tint="@color/morocco_terracotta"
+                    android:contentDescription="Filter" />
+
+            </LinearLayout>
+
+            <!-- Quick Category Chips -->
+            <HorizontalScrollView
+                android:id="@+id/categoryScrollView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none"
+                android:visibility="gone"
+                android:paddingHorizontal="12dp"
+                android:paddingBottom="8dp">
+
+                <com.google.android.material.chip.ChipGroup
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:singleSelection="false">
+
+                    <com.google.android.material.chip.Chip
+                        style="@style/Widget.Material3.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Historical"
+                        app:chipBackgroundColor="@color/chip_background_color"
+                        app:chipStrokeColor="@color/morocco_blue"
+                        app:chipStrokeWidth="1dp" />
+
+                    <com.google.android.material.chip.Chip
+                        style="@style/Widget.Material3.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Cultural"
+                        app:chipBackgroundColor="@color/chip_background_color"
+                        app:chipStrokeColor="@color/morocco_blue"
+                        app:chipStrokeWidth="1dp" />
+
+                    <com.google.android.material.chip.Chip
+                        style="@style/Widget.Material3.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Coastal"
+                        app:chipBackgroundColor="@color/chip_background_color"
+                        app:chipStrokeColor="@color/morocco_blue"
+                        app:chipStrokeWidth="1dp" />
+
+                    <com.google.android.material.chip.Chip
+                        style="@style/Widget.Material3.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Gardens"
+                        app:chipBackgroundColor="@color/chip_background_color"
+                        app:chipStrokeColor="@color/morocco_blue"
+                        app:chipStrokeWidth="1dp" />
+
+                </com.google.android.material.chip.ChipGroup>
+            </HorizontalScrollView>
 
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
-    <!-- FABs -->
+    <!-- Floating Action Buttons - Moroccan Themed -->
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="end|center_vertical"
-        android:layout_marginEnd="16dp"
+        android:layout_gravity="end|bottom"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="24dp"
         android:orientation="vertical">
 
+        <!-- Map Style FAB -->
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fabMapStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:src="@android:drawable/ic_menu_mapmode"
-            app:backgroundTint="#9C27B0"
+            app:backgroundTint="@color/morocco_sand"
+            app:tint="@color/white"
+            app:elevation="6dp"
+            app:borderWidth="0dp"
             android:contentDescription="Change Map Style" />
 
+        <!-- My Location FAB -->
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fabMyLocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:src="@android:drawable/ic_menu_mylocation"
-            app:backgroundTint="#2196F3" />
+            app:backgroundTint="@color/morocco_blue"
+            app:tint="@color/white"
+            app:elevation="6dp"
+            app:borderWidth="0dp"
+            android:contentDescription="My Location" />
 
+        <!-- List View FAB -->
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fabListView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:src="@android:drawable/ic_menu_agenda"
-            app:backgroundTint="#4CAF50" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fabChatAssistant"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="16dp"
-            android:layout_marginBottom="180dp"
-            android:src="@drawable/ic_atlas_assistant"
-            android:contentDescription="AI Assistant"
-            app:backgroundTint="@color/morocco_teal"
-            app:tint="@color/white" />
+            app:backgroundTint="@color/morocco_green"
+            app:tint="@color/white"
+            app:elevation="6dp"
+            app:borderWidth="0dp"
+            android:contentDescription="Places List" />
 
     </LinearLayout>
+
+    <!-- Chat Assistant - Extended FAB with Moroccan Style -->
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/fabChatAssistant"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|start"
+        android:layout_margin="20dp"
+        android:text="Ask Atlas AI"
+        android:textColor="@color/white"
+        android:fontFamily="sans-serif-medium"
+        app:icon="@drawable/ic_atlas_assistant"
+        app:iconTint="@color/white"
+        app:backgroundTint="@color/morocco_terracotta"
+        app:elevation="8dp"
+        app:borderWidth="0dp"
+        android:contentDescription="AI Travel Assistant" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
