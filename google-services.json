@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "581660644784",
+    "project_id": "moresqplore-hafid",
+    "storage_bucket": "moresqplore-hafid.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:581660644784:android:9e21862d31a96eeeca7275",
+        "android_client_info": {
+          "package_name": "com.example.moresqplore"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwxLV2QsCPsOtvSlolBK_YbT0ohgtlEmA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

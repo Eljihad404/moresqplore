@@ -38,7 +38,7 @@
             <EditText
                 android:id="@+id/searchEditText"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
                 android:hint="Search places..."
@@ -79,6 +79,18 @@
             android:layout_marginBottom="16dp"
             android:src="@android:drawable/ic_menu_agenda"
             app:backgroundTint="#4CAF50" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabChatAssistant"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="16dp"
+            android:layout_marginBottom="180dp"
+            android:src="@drawable/ic_atlas_assistant"
+            android:contentDescription="AI Assistant"
+            app:backgroundTint="@color/morocco_teal"
+            app:tint="@color/white" />
 
     </LinearLayout>
 

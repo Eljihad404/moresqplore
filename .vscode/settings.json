@@ -1,0 +1,23 @@
+﻿{
+    "java.configuration.runtimes": [
+        {
+            "name": "JavaSE-17",
+            "path": "C:\\Program Files\\Android\\Android Studio\\jbr",
+            "default": true
+        }
+    ],
+    "java.home": "C:\\Program Files\\Android\\Android Studio\\jbr",
+    "java.jdt.ls.java.home": "C:\\Program Files\\Android\\Android Studio\\jbr",
+    "java.import.gradle.java.home": "C:\\Program Files\\Android\\Android Studio\\jbr",
+    "gradle.nestedProjects": true,
+    "java.project.sourcePaths": [
+        "app/src/main/java"
+    ],
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "files.exclude": {
+        "**/.gradle": true,
+        "**/build": true,
+        "**/.idea": true,
+        "**/*.iml": true
+    }
+}

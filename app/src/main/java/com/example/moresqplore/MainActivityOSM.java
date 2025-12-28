@@ -1,6 +1,7 @@
 package com.example.moresqplore;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -14,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.example.moresqplore.ui.chat.ChatActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.osmdroid.config.Configuration;
@@ -64,8 +66,25 @@ public class MainActivityOSM extends AppCompatActivity {
         fabMyLocation = findViewById(R.id.fabMyLocation);
         fabListView = findViewById(R.id.fabListView);
         fabMapStyle = findViewById(R.id.fabMapStyle);
-    }
+        fabChatAssistant = findViewById(R.id.fabChatAssistant); // Add this
 
+    }
+    private FloatingActionButton fabChatAssistant;
+
+    private void setupClickListeners() {
+        fabMyLocation.setOnClickListener(v -> { /* existing code */ });
+
+        fabListView.setOnClickListener(v ->
+                Toast.makeText(this, "Places List - Coming soon!", Toast.LENGTH_SHORT).show());
+
+        fabMapStyle.setOnClickListener(v -> switchMapStyle());
+
+        // Add this - opens AI Assistant chat
+        fabChatAssistant.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivityOSM.this, ChatActivity.class);
+            startActivity(intent);
+        });
+    }
     private void setupMap() {
         // OPTION 1: OpenTopoMap - Shows terrain, relief, labels (RECOMMENDED)
         mapView.setTileSource(new XYTileSource(
@@ -305,26 +324,6 @@ public class MainActivityOSM extends AppCompatActivity {
                 mapView.getController().setZoom(14.0);
             }
         }));
-    }
-
-    private void setupClickListeners() {
-        fabMyLocation.setOnClickListener(v -> {
-            if (myLocationOverlay != null && myLocationOverlay.getMyLocation() != null) {
-                mapView.getController().animateTo(myLocationOverlay.getMyLocation());
-                mapView.getController().setZoom(15.0);
-                Toast.makeText(this, "Centered on your location",
-                        Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(this, "Getting your location...",
-                        Toast.LENGTH_SHORT).show();
-                enableMyLocation();
-            }
-        });
-
-        fabListView.setOnClickListener(v ->
-                Toast.makeText(this, "Places List - Coming soon!",
-                        Toast.LENGTH_SHORT).show());
-        fabMapStyle.setOnClickListener(v -> switchMapStyle());
     }
 
     @Override

@@ -29,6 +29,7 @@
         android:required="false" />
 
     <application
+        android:name=".MoresQploreApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -64,6 +65,17 @@
             android:exported="false"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize">
+        </activity>
+
+        <activity
+            android:name=".ui.chat.ChatActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AtlasExplorer"
+            android:parentActivityName=".MainActivityOSM">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivityOSM" />
         </activity>
 
         <!-- Places List Activity (we'll create this next) -->

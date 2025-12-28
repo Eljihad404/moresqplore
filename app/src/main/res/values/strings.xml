@@ -57,4 +57,140 @@
     <!-- Rating -->
     <string name="rating_format">%1$.1f (%2$d reviews)</string>
     <string name="no_reviews_yet">No reviews yet</string>
+
+    <!-- Landing Screen -->
+    <string name="welcome_title">Welcome to Morocco</string>
+    <string name="welcome_subtitle">Your AI-powered guide to the Maghreb</string>
+    <string name="btn_google_signin">Continue with Google</string>
+    <string name="btn_email_signin">Sign in with Email</string>
+    <string name="btn_signup">Create Account</string>
+    <string name="btn_continue_guest">Continue as Guest</string>
+    <string name="btn_forgot_password">Forgot Password?</string>
+
+    <!-- Navigation -->
+    <string name="navigation_chat">Assistant</string>
+
+    <!-- Actions -->
+    <string name="action_settings">Settings</string>
+    <string name="action_share">Share</string>
+    <string name="action_save">Save</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_edit">Edit</string>
+    <string name="action_retry">Retry</string>
+
+    <!-- Map Screen -->
+    <string name="my_location">My Location</string>
+    <string name="list_view">List View</string>
+    <string name="filter">Filter</string>
+    <string name="change_map_style">Map Style</string>
+    <string name="map_style_terrain">Terrain</string>
+    <string name="map_style_standard">Standard</string>
+    <string name="map_style_detailed">Detailed</string>
+
+    <!-- Place Details -->
+    <string name="place_details">Place Details</string>
+    <string name="call">Call</string>
+    <string name="website">Website</string>
+    <string name="photos">Photos</string>
+    <string name="duration">Duration</string>
+    <string name="distance">Distance</string>
+    <string name="admission">Admission</string>
+    <string name="about">About</string>
+    <string name="reviews">Reviews</string>
+    <string name="tips">Tips</string>
+
+    <!-- Trip Planner -->
+    <string name="trip_planner">Trip Planner</string>
+    <string name="create_trip">Create Trip</string>
+    <string name="save_trip">Save Trip</string>
+    <string name="delete_trip">Delete Trip</string>
+    <string name="my_trips">My Trips</string>
+    <string name="trip_name">Trip Name</string>
+    <string name="time_constraint">Time Available</string>
+    <string name="select_places">Select Places</string>
+    <string name="auto_select">Auto-Select Best Places</string>
+    <string name="optimize_route">Optimize Route</string>
+    <string name="total_distance">Total Distance</string>
+    <string name="total_time">Total Time</string>
+    <string name="estimated_cost">Estimated Cost</string>
+    <string name="circular_tour">Circular Tour</string>
+    <string name="trip_saved">Trip saved successfully</string>
+    <string name="trip_deleted">Trip deleted</string>
+
+    <!-- Categories -->
+    <string name="category_monuments">Monuments</string>
+    <string name="category_restaurants">Restaurants</string>
+    <string name="category_beaches">Beaches</string>
+
+    <!-- Chat / AI Assistant -->
+    <string name="travel_assistant">Travel Assistant</string>
+    <string name="atlas_ai">Atlas AI</string>
+    <string name="ask_about">Ask about:</string>
+    <string name="quick_option_monuments">Best monuments</string>
+    <string name="quick_option_transport">Transport options</string>
+    <string name="quick_option_food">Food recommendations</string>
+    <string name="quick_option_tips">Travel tips</string>
+    <string name="type_message">Type a message...</string>
+    <string name="send">Send</string>
+    <string name="atlas_typing">Atlas is thinking...</string>
+    <string name="clear_conversation">Clear Conversation</string>
+    <string name="suggested_questions">Suggested Questions</string>
+
+    <!-- Transportation -->
+    <string name="transport_mode">Transport Mode</string>
+    <string name="transport_train">Train (ONCF)</string>
+    <string name="transport_bus">Bus (CTM)</string>
+    <string name="transport_taxi">Taxi</string>
+    <string name="transport_car">Rental Car</string>
+    <string name="transport_walk">Walking</string>
+    <string name="travel_time">Travel Time</string>
+    <string name="travel_cost">Travel Cost</string>
+
+    <!-- Messages -->
+    <string name="no_internet">No internet connection</string>
+    <string name="try_again">Try Again</string>
+    <string name="no_results">No results found</string>
+    <string name="please_select_places">Please select at least one place</string>
+
+    <!-- Distance -->
+    <string name="distance_format">%1$.1f km</string>
+
+    <!-- Rating -->
+    <string name="reviews_count">%d reviews</string>
+    <string name="write_your_review">Write your review</string>
+    <string name="submit_review">Submit Review</string>
+
+    <!-- Time -->
+    <string name="minutes_format">%d min</string>
+    <string name="hours_format">%dh %dm</string>
+    <string name="hours_short">%d hours</string>
+    <string name="minutes_short">%d minutes</string>
+
+    <!-- Price -->
+    <string name="price_format">%1$.0f MAD</string>
+    <string name="free">Free</string>
+
+    <!-- Profile -->
+    <string name="edit_profile">Edit Profile</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="places_visited">Places Visited</string>
+    <string name="reviews_written">Reviews Written</string>
+    <string name="trips_created">Trips Created</string>
+
+    <!-- Errors -->
+    <string name="error_location">Could not get your location</string>
+    <string name="error_network">Network error. Please check your connection.</string>
+    <string name="error_ai_service">AI service temporarily unavailable. Please try again.</string>
+    <string name="error_unknown">Something went wrong. Please try again.</string>
+
+    <!-- Content Descriptions (Accessibility) -->
+    <string name="cd_back_button">Go back</string>
+    <string name="cd_menu_button">Open menu</string>
+    <string name="cd_close_button">Close</string>
+    <string name="cd_send_message">Send message</string>
+    <string name="cd_place_image">Place image</string>
+    <string name="cd_rating_stars">Rating stars</string>
+    <string name="cd_my_location">Center on my location</string>
+    <string name="cd_chat_avatar">Chat assistant avatar</string>
+
 </resources>
