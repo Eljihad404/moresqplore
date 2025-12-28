@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.moresqplore.ChatActivity;
+import com.example.moresqplore.ui.chat.ChatActivity;
 import com.example.moresqplore.R;
 import com.example.moresqplore.data.model.Itinerary;
 import com.example.moresqplore.data.repository.ItineraryRepository;

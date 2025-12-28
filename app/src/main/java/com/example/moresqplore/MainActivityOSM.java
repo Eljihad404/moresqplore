@@ -63,6 +63,7 @@ public class MainActivityOSM extends AppCompatActivity {
 
     private FloatingActionButton fabMapStyle;
     private com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton fabChatAssistant;
+    private com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton fabItineraryPlanner;
     private HorizontalScrollView categoryScrollView;
     private ImageView filterIcon;
     private int currentMapStyle = 0;
@@ -73,6 +74,7 @@ public class MainActivityOSM extends AppCompatActivity {
         fabListView = findViewById(R.id.fabListView);
         fabMapStyle = findViewById(R.id.fabMapStyle);
         fabChatAssistant = findViewById(R.id.fabChatAssistant);
+        fabItineraryPlanner = findViewById(R.id.fabItineraryPlanner);
 
         // Initialize search and filter views
         View searchCard = findViewById(R.id.searchCard);
@@ -99,6 +101,13 @@ public class MainActivityOSM extends AppCompatActivity {
         // AI Assistant chat
         fabChatAssistant.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivityOSM.this, ChatActivity.class);
+            startActivity(intent);
+        });
+
+        // Itinerary planner
+        fabItineraryPlanner.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivityOSM.this,
+                    com.example.moresqplore.ui.itinerary.ItineraryInputActivity.class);
             startActivity(intent);
         });
 
