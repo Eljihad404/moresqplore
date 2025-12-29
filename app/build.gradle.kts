@@ -1,9 +1,5 @@
-import java.util.Properties
-import java.io.FileInputStream
-
 plugins {
     alias(libs.plugins.android.application)
-    id("com.google.gms.google-services")
 }
 
 android {
@@ -16,38 +12,8 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
-        // Load local.properties
-        val localProperties = Properties()
-        val localPropertiesFile = rootProject.file("local.properties")
-        if (localPropertiesFile.exists()) {
-            localPropertiesFile.inputStream().use { stream ->
-                localProperties.load(stream)
-            }
-        }
-
-        // Get API key from local.properties first, then gradle.properties, then empty
-        val geminiApiKey: String = localProperties.getProperty("GEMINI_API_KEY")
-            ?: project.findProperty("GEMINI_API_KEY") as String?
-            ?: ""
-
-        val geminiModelId: String = localProperties.getProperty("GEMINI_MODEL_ID")
-            ?: project.findProperty("GEMINI_MODEL_ID") as String?
-            ?: "gemini-2.5-flash"
-
-        buildConfigField("String", "GEMINI_API_KEY", "\"$geminiApiKey\"")
-        buildConfigField("String", "GEMINI_MODEL_ID", "\"$geminiModelId\"")
-        buildConfigField(
-            "String",
-            "GEMINI_BASE_URL",
-            "\"https://generativelanguage.googleapis.com/\""
-        )
-    }
-
-    buildFeatures {
-        viewBinding = true
-        buildConfig = true
     }
 
     buildTypes {
@@ -74,12 +40,14 @@ dependencies {
     implementation(libs.credentials)
     implementation(libs.credentials.play.services.auth)
     implementation(libs.googleid)
+    implementation(platform("com.google.firebase:firebase-bom:34.7.0"))
+    implementation("com.google.firebase:firebase-analytics")
 
     // Testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
-
+    implementation("org.maplibre.gl:android-sdk:11.5.1")
     // Google Play Services - Maps & Location
     implementation("com.google.android.gms:play-services-maps:18.2.0")
     implementation("com.google.android.gms:play-services-location:21.3.0")
@@ -104,7 +72,7 @@ dependencies {
     // CircleImageView (for profile pictures)
     implementation("de.hdodenhof:circleimageview:3.1.0")
 
-    // Glide for image loading
+    // Glide for image loading (useful for user photos)
     implementation("com.github.bumptech.glide:glide:4.16.0")
     annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
 

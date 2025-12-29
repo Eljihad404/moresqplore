@@ -122,6 +122,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Place" />
         </activity>
+        <activity android:name=".CityDetailActivity" />
+        <activity android:name=".RoadmapActivity" />
+        <activity android:name=".ChatbotActivity" />
+
 
         <!-- Itinerary Activities -->
         <activity

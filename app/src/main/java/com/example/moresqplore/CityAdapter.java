@@ -24,7 +24,6 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.CityViewHolder
     @NonNull
     @Override
     public CityViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        // Inflate the card layout we designed earlier
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_city_card, parent, false);
         return new CityViewHolder(view);
     }
@@ -36,43 +35,45 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.CityViewHolder
         // 1. Set the Name
         holder.tvCityName.setText(cityName);
 
-        // 2. Set a specific image for each city (Optional Logic)
-        // You should add images named img_casablanca, img_rabat to your drawable folder
+        // 2. Set the Image (Kept your logic, just ensure these files exist in res/drawable)
         switch (cityName) {
             case "Casablanca":
-                holder.imgCity.setImageResource(R.drawable.casablanca); // Replace with R.drawable.img_casablanca
+                holder.imgCity.setImageResource(R.drawable.casablanca);
                 break;
             case "Marrakech":
-                holder.imgCity.setImageResource(R.drawable.marrakech); // Replace with R.drawable.img_marrakech
+                holder.imgCity.setImageResource(R.drawable.marrakech);
                 break;
             case "Tanger":
-                holder.imgCity.setImageResource(R.drawable.tanger); // Replace with R.drawable.img_marrakech
+                holder.imgCity.setImageResource(R.drawable.tanger);
                 break;
             case "Rabat":
-                holder.imgCity.setImageResource(R.drawable.rabat); // Replace with R.drawable.img_marrakech
+                holder.imgCity.setImageResource(R.drawable.rabat);
                 break;
             case "Agadir":
-                holder.imgCity.setImageResource(R.drawable.agadir); // Replace with R.drawable.img_marrakech
+                holder.imgCity.setImageResource(R.drawable.agadir);
                 break;
             case "Fez":
-                holder.imgCity.setImageResource(R.drawable.fez); // Replace with R.drawable.img_marrakech
+                holder.imgCity.setImageResource(R.drawable.fez);
                 break;
             case "Chefchaouen":
-                holder.imgCity.setImageResource(R.drawable.chefchaouen); // Replace with R.drawable.img_marrakech
+                holder.imgCity.setImageResource(R.drawable.chefchaouen);
                 break;
             case "Essaouira":
-                holder.imgCity.setImageResource(R.drawable.essaouira); // Replace with R.drawable.img_marrakech
+                holder.imgCity.setImageResource(R.drawable.essaouira);
                 break;
-
-            // Add other cases...
             default:
+                // Fallback image if city not found
                 holder.imgCity.setImageResource(R.drawable.ic_launcher_foreground);
         }
 
-        // 3. Handle Click - Navigate to Main Activity
+        // 3. HANDLE CLICK - UPDATED DESTINATION
         holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(context, MainActivityOSM.class);
-            intent.putExtra("SELECTED_CITY", cityName);
+            // CHANGE 1: Point to the new Detail Activity
+            Intent intent = new Intent(context, CityDetailActivity.class);
+
+            // CHANGE 2: Use the key "CITY_NAME" (must match the key in CityDetailActivity)
+            intent.putExtra("CITY_NAME", cityName);
+
             context.startActivity(intent);
         });
     }
@@ -82,7 +83,6 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.CityViewHolder
         return cityList.size();
     }
 
-    // ViewHolder Class
     public static class CityViewHolder extends RecyclerView.ViewHolder {
         TextView tvCityName;
         ImageView imgCity;
@@ -90,6 +90,7 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.CityViewHolder
         public CityViewHolder(@NonNull View itemView) {
             super(itemView);
             tvCityName = itemView.findViewById(R.id.tvCityName);
+            // Ensure your item_city_card.xml actually has an ImageView with id "imgCity"
             imgCity = itemView.findViewById(R.id.imgCity);
         }
     }
