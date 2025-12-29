@@ -19,6 +19,13 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.android.gms.tasks.OnCompleteListener;
+import androidx.annotation.NonNull;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -37,6 +44,9 @@ public class LoginActivity extends AppCompatActivity {
     // Google Sign In
     private GoogleSignInClient mGoogleSignInClient;
     private ActivityResultLauncher<Intent> signInLauncher;
+    
+    // Firebase Auth
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +61,9 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         setContentView(R.layout.activity_landing);
+
+        // Initialize Firebase Auth
+        mAuth = FirebaseAuth.getInstance();
 
         initializeViews();
         setupGoogleSignIn();
@@ -72,6 +85,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void setupGoogleSignIn() {
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .requestProfile()
                 .build();
@@ -130,15 +144,24 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        // TODO: IMPLEMENT ACTUAL AUTHENTICATION HERE (e.g., Firebase Auth)
-        // For now, we simulate a successful login for any non-empty input
-        if (email.contains("@")) {
-            String simulatedName = email.split("@")[0]; // Use part of email as name
-            saveUserInfo(simulatedName, email, null);
-            navigateToWelcomeActivity(simulatedName);
-        } else {
-            etEmail.setError("Please enter a valid email");
-        }
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "signInWithEmail:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            updateUI(user);
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "signInWithEmail:failure", task.getException());
+                            Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                            updateUI(null);
+                        }
+                    }
+                });
     }
 
     private void signInWithGoogle() {
@@ -151,21 +174,45 @@ public class LoginActivity extends AppCompatActivity {
         Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
         try {
             GoogleSignInAccount account = task.getResult(ApiException.class);
-            if (account != null) {
-                String name = account.getDisplayName() != null ? account.getDisplayName() : "Traveler";
-
-                saveUserInfo(
-                        name,
-                        account.getEmail(),
-                        account.getPhotoUrl() != null ? account.getPhotoUrl().toString() : null
-                );
-
-                navigateToWelcomeActivity(name);
-            }
+            Log.d(TAG, "firebaseAuthWithGoogle:" + account.getId());
+            firebaseAuthWithGoogle(account.getIdToken());
         } catch (ApiException e) {
-            Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
-            Toast.makeText(this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+            Log.w(TAG, "Google sign in failed", e);
+            Toast.makeText(this, "Google Sign in failed.", Toast.LENGTH_SHORT).show();
             btnGoogleSignIn.setEnabled(true);
+        }
+    }
+
+    private void firebaseAuthWithGoogle(String idToken) {
+        AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "signInWithCredential:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            updateUI(user);
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "signInWithCredential:failure", task.getException());
+                            Toast.makeText(LoginActivity.this, "Authentication Failed.", Toast.LENGTH_SHORT).show();
+                            updateUI(null);
+                            btnGoogleSignIn.setEnabled(true);
+                        }
+                    }
+                });
+    }
+
+    private void updateUI(FirebaseUser user) {
+        if (user != null) {
+            String name = user.getDisplayName() != null ? user.getDisplayName() : user.getEmail().split("@")[0];
+            String email = user.getEmail();
+            String photoUrl = user.getPhotoUrl() != null ? user.getPhotoUrl().toString() : null;
+
+            saveUserInfo(name, email, photoUrl);
+            navigateToWelcomeActivity(name);
         }
     }
 
@@ -198,14 +245,10 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        // Optional: Check strictly for Google account existence if you prefer strict Google logic
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-        if (account != null) {
-            // If Google says we are signed in, update local prefs and go
-            String name = account.getDisplayName() != null ? account.getDisplayName() : "Traveler";
-            saveUserInfo(name, account.getEmail(),
-                    account.getPhotoUrl() != null ? account.getPhotoUrl().toString() : null);
-            navigateToWelcomeActivity(name);
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser != null){
+            updateUI(currentUser);
         }
     }
 }
