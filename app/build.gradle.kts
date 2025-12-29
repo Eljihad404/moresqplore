@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
+    alias(libs.plugins.google.gms.google.services)
 }
 
 android {
@@ -14,6 +15,14 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField("String", "GEMINI_API_KEY", "\"AIzaSyC3D3uEnRxASxrqbSGw4inPF-gZNAvVSbA\"")
+
+        // ADD THIS LINE (You can change "gemini-1.5-flash-latest" to your preferred model)
+        buildConfigField("String", "GEMINI_MODEL_ID", "\"gemini-1.5-flash-latest\"")
+    }
+    buildFeatures {
+        buildConfig = true
+        viewBinding = true
     }
 
     buildTypes {

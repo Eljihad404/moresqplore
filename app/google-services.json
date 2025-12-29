@@ -1,33 +1,17 @@
 {
   "project_info": {
-<<<<<<< HEAD
-    "project_number": "581660644784",
-    "project_id": "moresqplore-hafid",
-    "storage_bucket": "moresqplore-hafid.firebasestorage.app"
-=======
     "project_number": "586375769938",
     "project_id": "moresqplore",
     "storage_bucket": "moresqplore.firebasestorage.app"
->>>>>>> feature/login
   },
   "client": [
     {
       "client_info": {
-<<<<<<< HEAD
-        "mobilesdk_app_id": "1:581660644784:android:9e21862d31a96eeeca7275",
-=======
         "mobilesdk_app_id": "1:586375769938:android:6a5cd17c8d14b2afe6d48b",
->>>>>>> feature/login
         "android_client_info": {
           "package_name": "com.example.moresqplore"
         }
       },
-<<<<<<< HEAD
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCwxLV2QsCPsOtvSlolBK_YbT0ohgtlEmA"
-=======
       "oauth_client": [
         {
           "client_id": "586375769938-bh3gk18sedj5784sgmt6gq767bqv26q0.apps.googleusercontent.com",
@@ -45,21 +29,16 @@
       "api_key": [
         {
           "current_key": "AIzaSyClqCT_k_N96f4waj_JoqEXYNC0DIrXqac"
->>>>>>> feature/login
         }
       ],
       "services": {
         "appinvite_service": {
-<<<<<<< HEAD
-          "other_platform_oauth_client": []
-=======
           "other_platform_oauth_client": [
             {
               "client_id": "586375769938-70c287hgmmj755klvumg0knh83d9843f.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
->>>>>>> feature/login
         }
       }
     }
