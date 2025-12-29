@@ -91,7 +91,7 @@ public class GeminiChatRepository {
     private static final int MAX_OUTPUT_TOKENS = 1024;
     private static final double TEMPERATURE = 0.7f;
     private static final double TOP_P = 0.9f;
-    private static final String DEFAULT_MODEL_ID = "gemini-1.5-flash-latest";
+    private static final String DEFAULT_MODEL_ID = "gemini-pro";
 
     private GeminiChatRepository() {
         this.conversationId = UUID.randomUUID().toString();
@@ -125,14 +125,16 @@ public class GeminiChatRepository {
     }
 
     private String resolveModelId() {
-        String configModel = BuildConfig.GEMINI_MODEL_ID;
-        if (configModel != null) {
-            String trimmed = configModel.trim();
-            if (!trimmed.isEmpty()) {
-                return trimmed;
-            }
+        // Use the model ID from BuildConfig (which comes from local.properties)
+        String modelId = BuildConfig.GEMINI_MODEL_ID;
+        
+        // Fallback if empty
+        if (modelId == null || modelId.isEmpty()) {
+            modelId = DEFAULT_MODEL_ID;
         }
-        return DEFAULT_MODEL_ID;
+        
+        android.util.Log.d("GeminiChat", "Using model ID: '" + modelId + "'");
+        return modelId;
     }
 
     // ==================== LIVE DATA GETTERS ====================
@@ -243,14 +245,28 @@ public class GeminiChatRepository {
         GeminiModels.GenerateContentRequest request = createRequest(contents);
 
         // Make API call
-        String apiKey = GeminiApiClient.getApiKey();
-        if (apiKey == null || apiKey.isEmpty()) {
+        String apiKey;
+        try {
+            apiKey = GeminiApiClient.getApiKey();
+        } catch (IllegalStateException e) {
             handleError("API key not configured. Please check your app settings.");
             isLoading.postValue(false);
             isTyping.postValue(false);
             return;
         }
+        
+        if (apiKey == null || apiKey.isEmpty() || apiKey.trim().isEmpty()) {
+            handleError("API key is empty. Please configure your Gemini API key.");
+            isLoading.postValue(false);
+            isTyping.postValue(false);
+            return;
+        }
 
+        android.util.Log.d("GeminiChat", "Sending request to model: '" + modelId + "'");
+        android.util.Log.d("GeminiChat", "Model ID length: " + modelId.length());
+        android.util.Log.d("GeminiChat", "API Key exists: " + (apiKey != null && !apiKey.isEmpty()));
+        
+        // Make the API call
         GeminiApiClient.getGeminiService().generateContent(modelId, apiKey, request)
                 .enqueue(new Callback<GeminiModels.GenerateContentResponse>() {
                     @Override
@@ -267,8 +283,11 @@ public class GeminiChatRepository {
 
                         if (response != null && response.isSuccessful() && response.body() != null) {
                             GeminiModels.GenerateContentResponse geminiResponse = response.body();
+                            android.util.Log.d("GeminiChat", "Response received, processing...");
                             processResponse(geminiResponse);
                         } else {
+                            android.util.Log.e("GeminiChat", "Unsuccessful response: " + 
+                                (response != null ? "Code " + response.code() + ": " + response.message() : "null response"));
                             handleUnsuccessfulResponse(response);
                         }
                     }
@@ -279,8 +298,9 @@ public class GeminiChatRepository {
                             Throwable t) {
                         isLoading.postValue(false);
                         isTyping.postValue(false);
-                        handleError("Network error: " +
-                                (t.getMessage() != null ? t.getMessage() : "Unknown error"));
+                        String errorMsg = t != null ? (t.getMessage() != null ? t.getMessage() : t.getClass().getSimpleName()) : "Unknown error";
+                        android.util.Log.e("GeminiChat", "API call failed: " + errorMsg, t);
+                        handleError("Network error: " + errorMsg);
                     }
                 });
     }
@@ -295,8 +315,11 @@ public class GeminiChatRepository {
         GeminiModels.GenerateContentRequest request =
                 new GeminiModels.GenerateContentRequest(contents);
 
-        // Set system instruction
-        GeminiModels.Content systemInstruction = GeminiModels.Content.model(SYSTEM_PROMPT);
+        // Set system instruction (systemInstruction should not have a role field)
+        // Create Content object without role for systemInstruction
+        GeminiModels.Content systemInstruction = new GeminiModels.Content();
+        // Don't set role for systemInstruction - it should be null/undefined
+        systemInstruction.getParts().add(new GeminiModels.Part(SYSTEM_PROMPT));
         request.setSystemInstruction(systemInstruction);
 
         // Configure generation settings
@@ -341,8 +364,16 @@ public class GeminiChatRepository {
     private void processResponse(GeminiModels.GenerateContentResponse geminiResponse) {
         if (geminiResponse.isSuccessful()) {
             String assistantResponse = geminiResponse.getFirstCandidateText();
-            addAssistantMessage(assistantResponse);
+            if (assistantResponse != null && !assistantResponse.isEmpty()) {
+                android.util.Log.d("GeminiChat", "Response received successfully, length: " + assistantResponse.length());
+                addAssistantMessage(assistantResponse);
+            } else {
+                android.util.Log.w("GeminiChat", "Empty response text received");
+                handleError("Received empty response from AI");
+            }
         } else {
+            android.util.Log.e("GeminiChat", "Response indicates error: " + 
+                (geminiResponse.getError() != null ? geminiResponse.getError().getMessage() : "unknown"));
             handleApiError(geminiResponse.getError());
         }
     }
@@ -353,12 +384,14 @@ public class GeminiChatRepository {
             return;
         }
 
+        android.util.Log.e("GeminiChat", "HTTP Error Code: " + response.code() + ", Message: " + response.message());
         String fallbackMessage = "Server error: " + response.code() + " " + response.message();
         ResponseBody errorBody = response.errorBody();
 
         if (errorBody != null) {
             try {
                 String errorPayload = errorBody.string();
+                android.util.Log.e("GeminiChat", "Error payload: " + errorPayload);
 
                 if (errorPayload != null && !errorPayload.isEmpty()) {
                     GeminiModels.GenerateContentResponse errorResponse =
@@ -394,12 +427,18 @@ public class GeminiChatRepository {
                     }
                 }
             } catch (IOException | IllegalStateException parseException) {
+                android.util.Log.e("GeminiChat", "Error parsing response body", parseException);
                 fallbackMessage = fallbackMessage + " (" + parseException.getMessage() + ")";
             } finally {
-                errorBody.close();
+                try {
+                    errorBody.close();
+                } catch (Exception e) {
+                    android.util.Log.e("GeminiChat", "Error closing error body", e);
+                }
             }
         }
 
+        android.util.Log.e("GeminiChat", "Final error message: " + fallbackMessage);
         handleError(fallbackMessage);
     }
 

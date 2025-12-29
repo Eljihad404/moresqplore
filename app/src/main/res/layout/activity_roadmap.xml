@@ -168,7 +168,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:src="@android:drawable/ic_menu_agenda"
-            app:backgroundTint="@color/morocco_green"
+            app:backgroundTint="@color/morocco_deep_green"
             app:tint="@color/white"
             app:elevation="6dp"
             app:borderWidth="0dp"
@@ -190,7 +190,7 @@
         android:fontFamily="sans-serif-medium"
         app:icon="@drawable/ic_atlas_assistant"
         app:iconTint="@color/white"
-        app:backgroundTint="@color/morocco_green"
+        app:backgroundTint="@color/morocco_deep_green"
         app:elevation="8dp"
         app:borderWidth="0dp"
         android:contentDescription="AI Itinerary Planner" />

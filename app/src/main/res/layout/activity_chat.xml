@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="@color/chat_background"
     tools:context=".ui.chat.ChatActivity">
 
     <!-- Toolbar -->
@@ -13,14 +13,15 @@
         android:id="@+id/toolbar"
         android:layout_width="0dp"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/surface"
+        android:background="@color/morocco_terracotta"
         android:elevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@drawable/ic_back"
+        app:navigationIconTint="@color/white"
         app:title="@string/travel_assistant"
-        app:titleTextColor="@color/text_primary" />
+        app:titleTextColor="@color/white" />
 
     <!-- Empty State -->
     <LinearLayout
@@ -80,6 +81,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:scrollbars="none"
+        android:layout_marginBottom="4dp"
         app:layout_constraintBottom_toTopOf="@id/inputContainer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -97,7 +99,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
-                android:text="Best monuments" />
+                android:text="Best monuments"
+                app:chipBackgroundColor="@color/white"
+                app:chipStrokeColor="@color/morocco_terracotta"
+                app:chipStrokeWidth="1dp" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/btnQuickAsk2"
@@ -105,7 +110,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
-                android:text="Travel options" />
+                android:text="Travel options"
+                app:chipBackgroundColor="@color/white"
+                app:chipStrokeColor="@color/morocco_terracotta"
+                app:chipStrokeWidth="1dp" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/btnQuickAsk3"
@@ -113,14 +121,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
-                android:text="Food tips" />
+                android:text="Food tips"
+                app:chipBackgroundColor="@color/white"
+                app:chipStrokeColor="@color/morocco_terracotta"
+                app:chipStrokeWidth="1dp" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/btnQuickAsk4"
                 style="@style/Widget.AtlasExplorer.Chip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Travel tips" />
+                android:text="Travel tips"
+                app:chipBackgroundColor="@color/white"
+                app:chipStrokeColor="@color/morocco_terracotta"
+                app:chipStrokeWidth="1dp" />
 
         </LinearLayout>
 
@@ -131,10 +145,11 @@
         android:id="@+id/textTyping"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="24dp"
         android:layout_marginBottom="8dp"
         android:text="Atlas is thinking..."
-        android:textColor="@color/text_secondary"
+        android:textStyle="italic"
+        android:textColor="@color/morocco_deep_green"
         android:textSize="12sp"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@id/inputContainer"
@@ -146,8 +161,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
+        app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="24dp"
-        app:cardElevation="8dp"
+        app:cardElevation="6dp"
+        app:strokeColor="@color/morocco_sand"
+        app:strokeWidth="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -179,9 +197,11 @@
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/send"
                 android:src="@drawable/ic_send"
-                app:backgroundTint="@color/primary"
+                app:backgroundTint="@color/morocco_deep_green"
                 app:fabSize="mini"
-                app:tint="@color/on_primary" />
+                app:tint="@color/white"
+                app:elevation="0dp"
+                app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior" />
 
         </LinearLayout>
 
@@ -192,6 +212,7 @@
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:indeterminateTint="@color/morocco_deep_green"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <!-- Top Search Bar with Modern Shadow -->
+    <!-- Top Search Bar with Moroccan Style -->
     <androidx.cardview.widget.CardView
         android:id="@+id/searchCard"
         android:layout_width="match_parent"
@@ -23,7 +23,9 @@
         android:layout_margin="16dp"
         app:cardCornerRadius="28dp"
         app:cardElevation="8dp"
-        android:backgroundTint="@android:color/white">
+        app:cardBackgroundColor="@color/white"
+        app:strokeColor="@color/morocco_blue"
+        app:strokeWidth="1dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -39,7 +41,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="12dp"
                 android:src="@android:drawable/ic_menu_search"
-                android:tint="#757575" />
+                app:tint="@color/morocco_deep_green" />
 
             <EditText
                 android:id="@+id/searchEditText"
@@ -48,8 +50,8 @@
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
                 android:hint="Search places in Morocco..."
-                android:textColorHint="#9E9E9E"
-                android:textColor="#212121"
+                android:textColorHint="@color/text_secondary"
+                android:textColor="@color/text_primary"
                 android:textSize="16sp"
                 android:paddingVertical="8dp"
                 android:inputType="text"
@@ -62,7 +64,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:src="@android:drawable/ic_menu_sort_by_size"
-                android:tint="#757575"
+                app:tint="@color/morocco_terracotta"
                 android:clickable="true"
                 android:focusable="true" />
 
@@ -85,8 +87,8 @@
             android:layout_marginBottom="16dp"
             android:contentDescription="My Location"
             android:src="@android:drawable/ic_menu_mylocation"
-            app:tint="@android:color/white"
-            app:backgroundTint="#2196F3"
+            app:tint="@color/white"
+            app:backgroundTint="@color/morocco_blue"
             app:elevation="6dp"
             app:fabSize="normal" />
 
@@ -98,8 +100,8 @@
             android:layout_marginBottom="16dp"
             android:contentDescription="List View"
             android:src="@android:drawable/ic_menu_agenda"
-            app:tint="@android:color/white"
-            app:backgroundTint="#4CAF50"
+            app:tint="@color/white"
+            app:backgroundTint="@color/morocco_deep_green"
             app:elevation="6dp"
             app:fabSize="normal" />
 
@@ -110,8 +112,8 @@
             android:layout_height="wrap_content"
             android:contentDescription="Trip Planner"
             android:src="@android:drawable/ic_menu_compass"
-            app:tint="@android:color/white"
-            app:backgroundTint="#FF9800"
+            app:tint="@color/white"
+            app:backgroundTint="@color/morocco_terracotta"
             app:elevation="6dp"
             app:fabSize="normal" />
 
@@ -140,46 +142,58 @@
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chipAll"
-                style="@style/Widget.MaterialComponents.Chip.Filter"
+                style="@style/Widget.AtlasExplorer.Chip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="All"
-                android:checked="true" />
+                android:checked="true"
+                app:chipBackgroundColor="@color/chip_background_color"
+                app:chipStrokeColor="@color/morocco_blue" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chipHistorical"
-                style="@style/Widget.MaterialComponents.Chip.Filter"
+                style="@style/Widget.AtlasExplorer.Chip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Historical" />
+                android:text="Historical"
+                app:chipBackgroundColor="@color/chip_background_color"
+                app:chipStrokeColor="@color/morocco_blue" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chipCultural"
-                style="@style/Widget.MaterialComponents.Chip.Filter"
+                style="@style/Widget.AtlasExplorer.Chip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Cultural" />
+                android:text="Cultural"
+                app:chipBackgroundColor="@color/chip_background_color"
+                app:chipStrokeColor="@color/morocco_blue" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chipBeach"
-                style="@style/Widget.MaterialComponents.Chip.Filter"
+                style="@style/Widget.AtlasExplorer.Chip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Coastal" />
+                android:text="Coastal"
+                app:chipBackgroundColor="@color/chip_background_color"
+                app:chipStrokeColor="@color/morocco_blue" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chipGarden"
-                style="@style/Widget.MaterialComponents.Chip.Filter"
+                style="@style/Widget.AtlasExplorer.Chip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Garden" />
+                android:text="Garden"
+                app:chipBackgroundColor="@color/chip_background_color"
+                app:chipStrokeColor="@color/morocco_blue" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chipReligious"
-                style="@style/Widget.MaterialComponents.Chip.Filter"
+                style="@style/Widget.AtlasExplorer.Chip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Religious" />
+                android:text="Religious"
+                app:chipBackgroundColor="@color/chip_background_color"
+                app:chipStrokeColor="@color/morocco_blue" />
 
         </com.google.android.material.chip.ChipGroup>
     </HorizontalScrollView>

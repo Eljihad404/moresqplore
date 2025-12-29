@@ -28,7 +28,7 @@
             android:layout_height="4dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="16dp"
-            android:background="#E0E0E0"
+            android:background="@color/morocco_sand"
             android:radius="2dp" />
 
         <LinearLayout
@@ -60,7 +60,7 @@
                     android:text="Place Name"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:textColor="#212121"
+                    android:textColor="@color/morocco_maroon"
                     android:maxLines="2"
                     android:ellipsize="end" />
 
@@ -70,7 +70,7 @@
                     android:layout_height="wrap_content"
                     android:text="City"
                     android:textSize="14sp"
-                    android:textColor="#757575"
+                    android:textColor="@color/text_secondary"
                     android:layout_marginTop="4dp" />
 
                 <!-- Rating Bar -->
@@ -89,7 +89,7 @@
                         android:numStars="5"
                         android:rating="4.5"
                         android:isIndicator="true"
-                        android:progressTint="#FFC107" />
+                        android:progressTint="@color/morocco_sand" />
 
                     <TextView
                         android:id="@+id/ratingText"
@@ -97,7 +97,7 @@
                         android:layout_height="wrap_content"
                         android:text="4.5 (120)"
                         android:textSize="12sp"
-                        android:textColor="#757575"
+                        android:textColor="@color/text_secondary"
                         android:layout_marginStart="8dp" />
 
                 </LinearLayout>
@@ -109,11 +109,11 @@
                     android:layout_height="wrap_content"
                     android:text="2.5 km away"
                     android:textSize="13sp"
-                    android:textColor="#2196F3"
+                    android:textColor="@color/morocco_blue"
                     android:layout_marginTop="4dp"
                     android:drawableStart="@android:drawable/ic_menu_directions"
                     android:drawablePadding="4dp"
-                    android:drawableTint="#2196F3" />
+                    app:drawableTint="@color/morocco_blue" />
 
             </LinearLayout>
 
@@ -129,7 +129,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnViewDetails"
-                style="@style/Widget.MaterialComponents.Button"
+                style="@style/Widget.AtlasExplorer.Button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -137,11 +137,11 @@
                 android:text="View Details"
                 android:textAllCaps="false"
                 app:cornerRadius="12dp"
-                app:backgroundTint="#2196F3" />
+                app:backgroundTint="@color/morocco_deep_green" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnAddToTrip"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                style="@style/Widget.AtlasExplorer.Button.Outlined"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -149,8 +149,8 @@
                 android:text="Add to Trip"
                 android:textAllCaps="false"
                 app:cornerRadius="12dp"
-                app:strokeColor="#2196F3"
-                android:textColor="#2196F3" />
+                app:strokeColor="@color/morocco_blue"
+                android:textColor="@color/morocco_blue" />
 
         </LinearLayout>
 

@@ -4,50 +4,59 @@
     <color name="white">#FFFFFFFF</color>
     
     <!-- Modern Moroccan Palette -->
-    <color name="morocco_terracotta">#E2725B</color>     <!-- Warm Earthy Red -->
+    <color name="morocco_terracotta">#E2725B</color>     <!-- Warm Earthy Red - User requested "morocco_maroon" alias to this -->
     <color name="morocco_blue">#005BB7</color>           <!-- Majorelle Blue -->
     <color name="morocco_sand">#F4A460</color>           <!-- Desert Sand -->
-    <color name="morocco_green">#009900</color>          <!-- Islamic Green accents -->
+    <color name="morocco_green">#009900</color>          <!-- Islamic Green -->
+    <color name="morocco_deep_green">#006400</color>     <!-- Deep Green -->
     <color name="morocco_cream">#FFFDD0</color>          <!-- Background warmth -->
-    
-    <!-- Legacy/Aliases for Compatibility -->
-    <color name="morocco_teal">@color/morocco_blue</color>
-    <color name="morocco_deep_green">#006400</color>
-    <color name="morocco_gold">@color/morocco_sand</color>
-    <color name="morocco_brick_red">@color/morocco_terracotta</color>
 
+    <!-- Aliases and Semantic Names -->
+    <color name="morocco_maroon">@color/morocco_terracotta</color>
+
+    <!-- UI Semantic Colors -->
     <color name="background">@color/morocco_cream</color>
     <color name="surface">@color/white</color>
     
+    <color name="chat_background">@color/morocco_cream</color>
+    <color name="chat_bubble_user">@color/morocco_deep_green</color>
+    <color name="chat_bubble_assistant">@color/white</color>
+    <color name="chat_text_user">@color/white</color>
+    <color name="chat_text_assistant">@color/text_primary</color>
+
+    <!-- Legacy/Aliases for Compatibility -->
+    <color name="morocco_teal">@color/morocco_blue</color>
+    <color name="morocco_gold">@color/morocco_sand</color>
+    <color name="morocco_brick_red">@color/morocco_terracotta</color>
+    
     <!-- Widget Colors -->
-    <!-- Removed duplicates that exist in res/color/ -->
     
     <!-- Primary Brand Colors -->
-    <color name="primary">@color/morocco_blue</color>
-    <color name="primary_dark">#004499</color>
-    <color name="secondary">@color/morocco_terracotta</color>
-    <color name="accent">@color/morocco_sand</color>
+    <color name="primary">@color/morocco_deep_green</color>
+    <color name="primary_dark">#004d00</color>
+    <color name="secondary">@color/morocco_maroon</color>
+    <color name="accent">@color/morocco_gold</color>
 
     <color name="text_primary">#2D2D2D</color>
     <color name="text_secondary">#757575</color>
 
-    <!-- Legacy Material Colors (Required for Night Theme compatibility) -->
+    <!-- Legacy Material Colors -->
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
 
-    <!-- Restored Missing Colors from Layouts/Drawables -->
-    <color name="chip_selected">@color/morocco_blue</color>
-    <color name="chip_unselected">#E0E0E0</color>
+    <!-- Component Colors -->
+    <color name="chip_selected">@color/morocco_maroon</color>
+    <color name="chip_unselected">@color/white</color>
     <color name="chip_text_selected">@color/white</color>
     <color name="chip_text_unselected">@color/text_primary</color>
 
-    <color name="chat_assistant_bubble">@color/morocco_cream</color>
-    <color name="chat_user_bubble">@color/morocco_blue</color>
+    <color name="chat_assistant_bubble">@color/chat_bubble_assistant</color>
+    <color name="chat_user_bubble">@color/chat_bubble_user</color>
     <color name="divider">#1F000000</color>
-    <color name="chat_typing_dot">@color/text_secondary</color>
+    <color name="chat_typing_dot">@color/morocco_deep_green</color>
     
     <color name="overlay_gradient_start">#00000000</color>
     <color name="overlay_gradient_end">#CC000000</color>
@@ -57,5 +66,4 @@
     <color name="text_grey">@color/text_secondary</color>
     
     <color name="morocco_white">@color/morocco_cream</color>
-    <color name="morocco_maroon">@color/morocco_terracotta</color>
 </resources>

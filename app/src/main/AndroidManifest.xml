@@ -85,46 +85,26 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Moresqplore.NoActionBar" />
 
-        <!-- Places List Activity -->
+        <!-- City Selection Activity -->
         <activity
-            android:name=".Place"
+            android:name=".SelectCityActivity"
             android:exported="false"
-            android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait"
-            tools:ignore="Instantiatable">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
-        </activity>
-        <activity android:name=".SelectCityActivity" />
+            android:theme="@style/Theme.MoresQplore" />
 
-        <!-- Trip Planner Activity -->
+        <!-- City Details Activity -->
         <activity
-            android:name=".TripPlan"
+            android:name=".CityDetailActivity"
             android:exported="false"
-            android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait"
-            tools:ignore="Instantiatable">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
-        </activity>
+            android:theme="@style/Theme.MoresQplore" />
 
-        <!-- Review Activity -->
+        <!-- Legacy Chatbot Activity (redirects to ChatActivity) -->
         <activity
-            android:name=".Review"
+            android:name=".ChatbotActivity"
             android:exported="false"
-            android:parentActivityName=".Place"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize"
-            tools:ignore="Instantiatable">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Place" />
-        </activity>
-        <activity android:name=".CityDetailActivity" />
-        <activity android:name=".RoadmapActivity" />
-        <activity android:name=".ChatbotActivity" />
+            android:theme="@style/Theme.AtlasExplorer" />
 
 
         <!-- Itinerary Activities -->

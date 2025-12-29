@@ -62,10 +62,11 @@ public class GeminiModels {
     /**
      * Represents a piece of content in the conversation.
      * Each content object has a role and a list of parts.
+     * Note: systemInstruction uses Content but without the role field.
      */
     public static class Content {
         @SerializedName("role")
-        private String role; // "user" or "model"
+        private String role; // "user" or "model" (null for systemInstruction)
 
         @SerializedName("parts")
         private List<Part> parts;

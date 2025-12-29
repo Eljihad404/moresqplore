@@ -74,8 +74,13 @@ public class CityDetailActivity extends AppCompatActivity {
         });
 
         cardAI.setOnClickListener(v -> {
-            // Logic to open Chatbot
-            Intent intent = new Intent(CityDetailActivity.this, ChatbotActivity.class);
+            // Open AI Chat Assistant
+            Intent intent = new Intent(CityDetailActivity.this, 
+                    com.example.moresqplore.ui.chat.ChatActivity.class);
+            // Optionally pass city context to the chat
+            if (cityName != null) {
+                intent.putExtra("CITY_CONTEXT", cityName);
+            }
             startActivity(intent);
         });
     }

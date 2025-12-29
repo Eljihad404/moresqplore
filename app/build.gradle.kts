@@ -3,6 +3,8 @@ plugins {
     alias(libs.plugins.google.gms.google.services)
 }
 
+import java.util.Properties
+
 android {
     namespace = "com.example.moresqplore"
     compileSdk = 35
@@ -15,10 +17,19 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField("String", "GEMINI_API_KEY", "\"AIzaSyC3D3uEnRxASxrqbSGw4inPF-gZNAvVSbA\"")
 
-        // ADD THIS LINE (You can change "gemini-1.5-flash-latest" to your preferred model)
-        buildConfigField("String", "GEMINI_MODEL_ID", "\"gemini-1.5-flash-latest\"")
+        // Read API key and Model ID from local.properties
+        val localProperties = Properties()
+        val localPropertiesFile = rootProject.file("local.properties")
+        if (localPropertiesFile.exists()) {
+            localPropertiesFile.inputStream().use { localProperties.load(it) }
+        }
+
+        val geminiApiKey = localProperties.getProperty("GEMINI_API_KEY") ?: ""
+        val geminiModelId = localProperties.getProperty("GEMINI_MODEL_ID") ?: "gemini-pro"
+
+        buildConfigField("String", "GEMINI_API_KEY", "\"$geminiApiKey\"")
+        buildConfigField("String", "GEMINI_MODEL_ID", "\"$geminiModelId\"")
     }
     buildFeatures {
         buildConfig = true
