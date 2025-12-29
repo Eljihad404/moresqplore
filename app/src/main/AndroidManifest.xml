@@ -140,6 +140,20 @@
             android:theme="@style/Theme.MoresQplore"
             android:label="Your Itinerary" />
 
+        <!-- Price Comparison Activity -->
+        <activity
+            android:name=".ui.prices.PriceComparisonActivity"
+            android:exported="false"
+            android:theme="@style/Theme.MoresQplore"
+            android:label="Compare Prices" />
+
+        <!-- Guide Marketplace Activity -->
+        <activity
+            android:name=".ui.guides.GuideMarketplaceActivity"
+            android:exported="false"
+            android:theme="@style/Theme.MoresQplore"
+            android:label="Local Guides" />
+
     </application>
 
 </manifest>

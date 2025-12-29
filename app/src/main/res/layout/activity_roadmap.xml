@@ -195,6 +195,44 @@
         app:borderWidth="0dp"
         android:contentDescription="AI Itinerary Planner" />
 
+    <!-- Guide Marketplace - Extended FAB -->
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/fabGuideMarketplace"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|start"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="230dp"
+        android:text="Find Guides"
+        android:textColor="@color/white"
+        android:fontFamily="sans-serif-medium"
+        app:icon="@android:drawable/ic_menu_myplaces"
+        app:iconTint="@color/white"
+        app:backgroundTint="@color/morocco_terracotta"
+        app:elevation="8dp"
+        app:borderWidth="0dp"
+        android:contentDescription="Local Guides" />
+
+    <!-- Price Comparison - Extended FAB -->
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/fabPriceComparison"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|start"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="160dp"
+        android:text="Compare Prices"
+        android:textColor="@color/white"
+        android:fontFamily="sans-serif-medium"
+        app:icon="@android:drawable/ic_menu_view"
+        app:iconTint="@color/white"
+        app:backgroundTint="@color/morocco_blue"
+        app:elevation="8dp"
+        app:borderWidth="0dp"
+        android:contentDescription="Price Comparison" />
+
     <!-- Chat Assistant - Extended FAB with Moroccan Style -->
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/fabChatAssistant"

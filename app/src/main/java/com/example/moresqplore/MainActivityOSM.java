@@ -61,6 +61,8 @@ public class MainActivityOSM extends AppCompatActivity {
     private FloatingActionButton fabMapStyle;
     private com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton fabChatAssistant;
     private com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton fabItineraryPlanner;
+    private com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton fabPriceComparison;
+    private com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton fabGuideMarketplace;
     private HorizontalScrollView categoryScrollView;
     private ImageView filterIcon;
     private int currentMapStyle = 0;
@@ -72,6 +74,8 @@ public class MainActivityOSM extends AppCompatActivity {
         fabMapStyle = findViewById(R.id.fabMapStyle);
         fabChatAssistant = findViewById(R.id.fabChatAssistant);
         fabItineraryPlanner = findViewById(R.id.fabItineraryPlanner);
+        fabPriceComparison = findViewById(R.id.fabPriceComparison);
+        fabGuideMarketplace = findViewById(R.id.fabGuideMarketplace);
 
         // Initialize search and filter views
         View searchCard = findViewById(R.id.searchCard);
@@ -105,6 +109,20 @@ public class MainActivityOSM extends AppCompatActivity {
         fabItineraryPlanner.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivityOSM.this,
                     com.example.moresqplore.ui.itinerary.ItineraryInputActivity.class);
+            startActivity(intent);
+        });
+
+        // Price comparison
+        fabPriceComparison.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivityOSM.this,
+                    com.example.moresqplore.ui.prices.PriceComparisonActivity.class);
+            startActivity(intent);
+        });
+
+        // Guide marketplace
+        fabGuideMarketplace.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivityOSM.this,
+                    com.example.moresqplore.ui.guides.GuideMarketplaceActivity.class);
             startActivity(intent);
         });
 
