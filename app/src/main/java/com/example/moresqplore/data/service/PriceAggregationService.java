@@ -19,6 +19,10 @@ public class PriceAggregationService {
 
     private final Random random = new Random();
 
+    // TODO: Replace with your affiliate IDs
+    private static final String BOOKING_AFFILIATE_ID = "YOUR_BOOKING_AID";
+    private static final String SKYSCANNER_AFFILIATE_ID = "YOUR_SKYSCANNER_ID";
+
     /**
      * Generate mock price comparison for hotels
      */
@@ -108,8 +112,8 @@ public class PriceAggregationService {
         offer.setRating(3.5 + (random.nextDouble() * 1.5));
         offer.setReviewCount(100 + random.nextInt(900));
 
-        // Generate booking URL
-        offer.setBookingUrl(provider.getBaseUrl() + "/morocco");
+        // Generate affiliate booking URL
+        offer.setBookingUrl(generateAffiliateUrl(provider, "hotel", city, checkIn, checkOut));
 
         // Random special offers
         if (random.nextDouble() < 0.3) {
@@ -141,7 +145,7 @@ public class PriceAggregationService {
         // Airlines have higher ratings
         offer.setRating(4.0 + (random.nextDouble() * 1.0));
         offer.setReviewCount(500 + random.nextInt(1500));
-        offer.setBookingUrl(provider.getBaseUrl());
+        offer.setBookingUrl(generateAffiliateUrl(provider, "flight", route, date, null));
 
         // Random special offers
         if (random.nextDouble() < 0.2) {
@@ -171,7 +175,7 @@ public class PriceAggregationService {
 
         offer.setRating(4.0 + (random.nextDouble() * 1.0));
         offer.setReviewCount(50 + random.nextInt(450));
-        offer.setBookingUrl(provider.getBaseUrl() + "/morocco");
+        offer.setBookingUrl(generateAffiliateUrl(provider, "activity", city, date, null));
 
         // More frequent special offers for activities
         if (random.nextDouble() < 0.4) {
@@ -313,5 +317,57 @@ public class PriceAggregationService {
             }
         }
         return filtered;
+    }
+
+    /**
+     * Generate affiliate URL for booking provider
+     */
+    private String generateAffiliateUrl(BookingProvider provider, String type,
+            String location, String date, String endDate) {
+        String baseUrl = provider.getBaseUrl();
+
+        switch (provider) {
+            case BOOKING_COM:
+                // Booking.com affiliate link
+                return baseUrl + "/searchresults.html?ss=" + location +
+                        (date != null ? "&checkin=" + date : "") +
+                        (endDate != null ? "&checkout=" + endDate : "") +
+                        "&aid=" + BOOKING_AFFILIATE_ID;
+
+            case AIRBNB:
+                // Airbnb search link
+                return baseUrl + "/s/" + location + "/homes";
+
+            case AGODA:
+                // Agoda city search
+                return baseUrl + "/search?city=" + location;
+
+            case HOTELS_COM:
+                // Hotels.com search
+                return baseUrl + "/search.do?destination=" + location;
+
+            case EXPEDIA:
+                // Expedia search
+                return baseUrl + "/Hotel-Search?destination=" + location;
+
+            case ROYAL_AIR_MAROC:
+            case AIR_ARABIA:
+                // Flight booking
+                return baseUrl + "/booking?route=" + location;
+
+            case SKYSCANNER:
+                // Skyscanner affiliate link
+                return baseUrl + "/transport/flights/" + location +
+                        "?associateid=" + SKYSCANNER_AFFILIATE_ID;
+
+            case GETYOURGUIDE:
+            case VIATOR:
+            case KLOOK:
+                // Activity booking
+                return baseUrl + "/morocco/" + location + "/activities";
+
+            default:
+                return baseUrl;
+        }
     }
 }

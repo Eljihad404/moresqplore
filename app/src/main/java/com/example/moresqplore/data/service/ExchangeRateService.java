@@ -22,7 +22,7 @@ public class ExchangeRateService {
     private static final String TAG = "ExchangeRateService";
 
     // TODO: Replace with your API key from https://www.exchangerate-api.com/
-    private static final String API_KEY = "YOUR_API_KEY_HERE";
+    private static final String API_KEY = "c70b888ef5a47aa9c51a12a3";
     private static final String BASE_URL = "https://v6.exchangerate-api.com/v6/";
 
     // Cache rates for 24 hours to minimize API calls

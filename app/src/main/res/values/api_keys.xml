@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Firebase (already in google-services.json) -->
+
+    <!-- Future APIs -->
+    <string name="exchange_rate_api_key">c70b888ef5a47aa9c51a12a3</string>
+    <string name="booking_api_key">YOUR_KEY_HERE</string>
+    <string name="skyscanner_api_key">YOUR_KEY_HERE</string>
+</resources>
