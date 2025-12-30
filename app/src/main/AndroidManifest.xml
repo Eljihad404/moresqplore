@@ -150,6 +150,13 @@
             android:theme="@style/Theme.MoresQplore"
             android:label="Local Guides" />
 
+        <!-- Budget Tracker Activity -->
+        <activity
+            android:name=".ui.budget.BudgetTrackerActivity"
+            android:exported="false"
+            android:theme="@style/Theme.MoresQplore"
+            android:label="Budget Tracker" />
+
     </application>
 
 </manifest>

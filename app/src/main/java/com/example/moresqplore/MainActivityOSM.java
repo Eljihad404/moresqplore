@@ -66,6 +66,7 @@ public class MainActivityOSM extends AppCompatActivity {
     private com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton fabItineraryPlanner;
     private com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton fabPriceComparison;
     private com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton fabGuideMarketplace;
+    private com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton fabBudgetTracker;
     private HorizontalScrollView categoryScrollView;
     private ImageView filterIcon;
     private int currentMapStyle = 0;
@@ -79,6 +80,7 @@ public class MainActivityOSM extends AppCompatActivity {
         fabItineraryPlanner = findViewById(R.id.fabItineraryPlanner);
         fabPriceComparison = findViewById(R.id.fabPriceComparison);
         fabGuideMarketplace = findViewById(R.id.fabGuideMarketplace);
+        fabBudgetTracker = findViewById(R.id.fabBudgetTracker);
 
         // Initialize search and filter views
         View searchCard = findViewById(R.id.searchCard);
@@ -126,6 +128,13 @@ public class MainActivityOSM extends AppCompatActivity {
         fabGuideMarketplace.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivityOSM.this,
                     com.example.moresqplore.ui.guides.GuideMarketplaceActivity.class);
+            startActivity(intent);
+        });
+
+        // Budget tracker
+        fabBudgetTracker.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivityOSM.this,
+                    com.example.moresqplore.ui.budget.BudgetTrackerActivity.class);
             startActivity(intent);
         });
 
