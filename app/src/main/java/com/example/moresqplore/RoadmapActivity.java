@@ -41,44 +41,50 @@ public class RoadmapActivity extends AppCompatActivity implements OnMapReadyCall
 
     @Override
     public void onMapReady(@NonNull MapLibreMap map) {
-        // 3. Load a nice style (MapTiler offers many: STREETS, SATELLITE, VOYAGER)
-        // Note: Replace {YOUR_API_KEY} in the URL
         String styleUrl = "https://api.maptiler.com/maps/streets/style.json?key=" + API_KEY;
+        String cityName = getIntent().getStringExtra("CITY_NAME");
 
-        map.setStyle(styleUrl, new Style.OnStyleLoaded() {
-            @Override
-            public void onStyleLoaded(@NonNull Style style) {
-
-                // Define Points
-                LatLng mosque = new LatLng(33.6085, -7.6327);
-                LatLng medina = new LatLng(33.5958, -7.6176);
-                LatLng mall   = new LatLng(33.5760, -7.7069);
-
-                // Add Markers
-                map.addMarker(new MarkerOptions().position(mosque).title("Hassan II Mosque"));
-                map.addMarker(new MarkerOptions().position(medina).title("Old Medina"));
-                map.addMarker(new MarkerOptions().position(mall).title("Morocco Mall"));
-
-                // Draw Polyline
-                List<LatLng> points = new ArrayList<>();
-                points.add(mosque);
-                points.add(medina);
-                points.add(mall);
-
-                map.addPolyline(new PolylineOptions()
-                        .addAll(points)
-                        .color(Color.parseColor("#C0392B"))
-                        .width(5f)); // Width is in pixels
-
-                // Move Camera
-                CameraPosition position = new CameraPosition.Builder()
-                        .target(medina)
-                        .zoom(12)
-                        .tilt(20) // Gives a nice 3D effect
-                        .build();
-                map.setCameraPosition(position);
+        map.setStyle(styleUrl, style -> {
+            if (cityName != null) {
+                loadCityRoute(map, cityName);
+            } else {
+                // Default fallback
+                LatLng morocco = new LatLng(31.7917, -7.0926);
+                map.setCameraPosition(new CameraPosition.Builder().target(morocco).zoom(5).build());
             }
         });
+    }
+
+    private void loadCityRoute(MapLibreMap map, String cityName) {
+        com.example.moresqplore.data.repository.PlaceRepository.getInstance()
+                .fetchPlacesByCity(cityName)
+                .observe(this, places -> {
+                    if (places != null && !places.isEmpty()) {
+                        List<LatLng> points = new ArrayList<>();
+                        for (com.example.moresqplore.data.model.Place place : places) {
+                            if (place.getLocation() != null) {
+                                LatLng latLng = new LatLng(place.getLocation().getLatitude(), place.getLocation().getLongitude());
+                                points.add(latLng);
+                                map.addMarker(new MarkerOptions().position(latLng).title(place.getName()));
+                            }
+                        }
+
+                        if (!points.isEmpty()) {
+                            map.addPolyline(new PolylineOptions()
+                                    .addAll(points)
+                                    .color(Color.parseColor("#C0392B"))
+                                    .width(5f));
+
+                            // Move Camera to first point
+                            CameraPosition position = new CameraPosition.Builder()
+                                    .target(points.get(0))
+                                    .zoom(12)
+                                    .tilt(20)
+                                    .build();
+                            map.setCameraPosition(position);
+                        }
+                    }
+                });
     }
 
     // MapLibre requires lifecycle handling

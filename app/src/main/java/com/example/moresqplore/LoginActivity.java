@@ -207,6 +207,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void updateUI(FirebaseUser user) {
         if (user != null) {
+
             String name = user.getDisplayName() != null ? user.getDisplayName() : user.getEmail().split("@")[0];
             String email = user.getEmail();
             String photoUrl = user.getPhotoUrl() != null ? user.getPhotoUrl().toString() : null;

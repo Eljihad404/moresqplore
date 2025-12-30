@@ -5,7 +5,7 @@ import android.util.Log;
 import com.example.moresqplore.data.model.Activity;
 import com.example.moresqplore.data.model.DayPlan;
 import com.example.moresqplore.data.model.Itinerary;
-import com.example.moresqplore.Place;
+import com.example.moresqplore.data.model.Place;
 import com.example.moresqplore.data.repository.GeminiChatRepository;
 import com.example.moresqplore.data.model.ChatMessage;
 

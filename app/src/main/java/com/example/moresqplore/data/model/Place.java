@@ -1,32 +1,72 @@
 package com.example.moresqplore.data.model;
 
-import com.google.firebase.firestore.GeoPoint;
+import com.google.gson.annotations.SerializedName;
+import java.io.Serializable;
+import java.util.List;
 
 /**
  * Data model representing a tourist place in Morocco.
  */
-public class Place {
+public class Place implements Serializable {
+    @SerializedName("id")
     private String id;
+    
+    @SerializedName("name")
     private String name;
+    
+    @SerializedName("description")
     private String description;
+    
+    @SerializedName("category")
     private String category;
+    
+    @SerializedName("city")
     private String city;
+    
+    @SerializedName("address")
     private String address;
+    
+    @SerializedName("image_url")
     private String imageUrl;
+    
+    @SerializedName("thumbnail_url")
     private String thumbnailUrl;
+    
+    @SerializedName("rating")
     private Double rating;
+    
+    @SerializedName("review_count")
     private Integer reviewCount;
+    
+    @SerializedName("opening_hours")
     private String openingHours;
+    
+    @SerializedName("ticket_price")
     private Double ticketPrice;
+    
+    @SerializedName("is_free_entry")
     private Boolean isFreeEntry;
+    
+    @SerializedName("website")
     private String website;
+    
+    @SerializedName("phone_number")
     private String phoneNumber;
-    private GeoPoint location;
-    private java.util.List<String> tags;
+    
+    @SerializedName("latitude")
+    private Double latitude;
+    
+    @SerializedName("longitude")
+    private Double longitude;
+    
+    @SerializedName("tags")
+    private List<String> tags;
+    
+    @SerializedName("view_count")
     private Integer viewCount;
+    
     private Double distanceFromUser;
 
-    // Required empty constructor for Firestore
     public Place() {}
 
     // Getters and Setters
@@ -75,15 +115,39 @@ public class Place {
     public String getPhoneNumber() { return phoneNumber; }
     public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
 
-    public GeoPoint getLocation() { return location; }
-    public void setLocation(GeoPoint location) { this.location = location; }
+    public Double getLatitude() { return latitude; }
+    public void setLatitude(Double latitude) { this.latitude = latitude; }
 
-    public java.util.List<String> getTags() { return tags; }
-    public void setTags(java.util.List<String> tags) { this.tags = tags; }
+    public Double getLongitude() { return longitude; }
+    public void setLongitude(Double longitude) { this.longitude = longitude; }
+
+    // Helper to maintain compatibility
+    public GeoPoint getLocation() {
+        if (latitude != null && longitude != null) {
+            return new GeoPoint(latitude, longitude);
+        }
+        return null;
+    }
+
+    public void setLocation(GeoPoint location) {
+        if (location != null) {
+            this.latitude = location.getLatitude();
+            this.longitude = location.getLongitude();
+        }
+    }
+
+    public List<String> getTags() { return tags; }
+    public void setTags(List<String> tags) { this.tags = tags; }
 
     public Integer getViewCount() { return viewCount; }
     public void setViewCount(Integer viewCount) { this.viewCount = viewCount; }
 
     public Double getDistanceFromUser() { return distanceFromUser; }
     public void setDistanceFromUser(Double distanceFromUser) { this.distanceFromUser = distanceFromUser; }
+
+    @SerializedName("estimated_duration")
+    private Integer estimatedVisitDuration;
+
+    public Integer getEstimatedVisitDuration() { return estimatedVisitDuration != null ? estimatedVisitDuration : 60; } // Default 60 mins
+    public void setEstimatedVisitDuration(Integer estimatedVisitDuration) { this.estimatedVisitDuration = estimatedVisitDuration; }
 }

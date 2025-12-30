@@ -11,7 +11,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
-import com.example.moresqplore.Place;
+import com.example.moresqplore.data.model.Place;
 import com.example.moresqplore.R;
 import com.example.moresqplore.data.network.WikiService;
 import com.google.android.material.button.MaterialButton;
@@ -63,7 +63,9 @@ public class PlaceDetailsActivity extends AppCompatActivity {
 
         tvTitle.setText(place.getName());
         tvCity.setText(place.getCity());
-        tvRating.setText(String.format("★ %.1f (%d reviews)", place.getAverageRating(), place.getTotalReviews()));
+        tvRating.setText(String.format("★ %.1f (%d reviews)", 
+                place.getRating() != null ? place.getRating() : 0.0, 
+                place.getReviewCount() != null ? place.getReviewCount() : 0));
         chipCategory.setText(place.getCategory());
     }
 

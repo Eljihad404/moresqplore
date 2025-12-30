@@ -134,6 +134,13 @@
             android:theme="@style/Theme.MoresQplore"
             android:label="Local Guides" />
 
+        <!-- Roadmap Activity (MapLibre) -->
+        <activity
+            android:name=".RoadmapActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Moresqplore.NoActionBar" />
+
     </application>
 
 </manifest>

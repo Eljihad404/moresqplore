@@ -32,6 +32,13 @@ import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.moresqplore.data.model.Place;
+import com.example.moresqplore.data.repository.PlaceRepository;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import android.widget.Button;
+import android.widget.TextView;
+// ... other imports
+
 public class MainActivityOSM extends AppCompatActivity {
 
     private MapView mapView;
@@ -53,9 +60,122 @@ public class MainActivityOSM extends AppCompatActivity {
 
         initializeViews();
         setupMap();
-        createSamplePlaces();
         checkLocationPermission();
         setupClickListeners();
+        
+        // Fetch Real Data
+        fetchPlaces();
+    }
+
+    private void fetchPlaces() {
+        PlaceRepository.getInstance().fetchPlacesByCity("Morocco").observe(this, places -> {
+             if (places != null) {
+                 mPlaces.clear();
+                 mPlaces.addAll(places);
+                 addPlaceMarkers();
+             }
+        });
+        // Also try fetching all top rated to populate map initially if city specific fails or for broad view
+        PlaceRepository.getInstance().fetchTopRatedPlaces(50).observe(this, places -> {
+             if (places != null && mPlaces.isEmpty()) {
+                 mPlaces.addAll(places);
+                 addPlaceMarkers();
+             }
+        });
+    }
+
+
+    // ... member variables ...
+
+    // ... (keep logic same until instantiate sample places if any, but createSamplePlaces was removed/not used here anymore as we fetch real data)
+    // Wait, createSamplePlaces WAS called in onCreate but I removed it in Step 238?
+    // Let's check the current view of MainActivityOSM.
+    
+    // In step 238 I removed createSamplePlaces() call from onCreate. 
+    // But the COMPILER error says: MainActivityOSM.java:247: error: constructor Place...
+    // This means createSamplePlaces IS still in the file!
+    // Ah, I might have failed to remove the METHOD DEFINITION even if I removed the call?
+    // Or I removed the call but the method definition remains and uses the old constructor.
+    // I should remove the `createSamplePlaces` method entirely if it's not used, OR update it.
+    // Since we are fetching real data, I should just remove `createSamplePlaces` method entirely to avoid these errors.
+    
+    // Also need to fix getAverageRating usage in addPlaceMarkers/showPlaceBottomSheet
+    
+    private void addPlaceMarkers() {
+        for (Place place : mPlaces) {
+            Marker marker = new Marker(mapView);
+            // safe check for location
+            if (place.getLatitude() != null && place.getLongitude() != null) {
+                marker.setPosition(new GeoPoint(place.getLatitude(), place.getLongitude()));
+            } else if (place.getLocation() != null) {
+                marker.setPosition(new GeoPoint(place.getLocation().getLatitude(), place.getLocation().getLongitude()));
+            } else {
+                continue; // Skip if no location
+            }
+            
+            marker.setTitle(place.getName());
+
+            double rating = place.getRating() != null ? place.getRating() : 0.0;
+            int reviews = place.getReviewCount() != null ? place.getReviewCount() : 0;
+
+            // Create detailed snippet with rating
+            String snippet = place.getCity() + "\n" +
+                    "★ " + rating + " (" + reviews + " reviews)\n" +
+                    place.getDescription();
+            marker.setSnippet(snippet);
+
+            // Set anchor point
+            marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+
+            // Custom marker icon based on category
+            Drawable icon = getMarkerIconForCategory(place.getCategory());
+            if (icon != null) {
+                marker.setIcon(icon);
+            }
+
+            // Set text style
+            marker.setTextLabelFontSize(16);
+            marker.setTextLabelBackgroundColor(Color.WHITE);
+            marker.setTextLabelForegroundColor(Color.BLACK);
+
+            // Click listener
+            marker.setOnMarkerClickListener((m, map) -> {
+                showPlaceBottomSheet(place);
+                return true;
+            });
+
+            mapView.getOverlays().add(marker);
+        }
+
+        mapView.invalidate();
+    }
+
+    private void showPlaceBottomSheet(Place place) {
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
+        View sheetView = getLayoutInflater().inflate(R.layout.layout_bottom_sheet_place, null);
+        bottomSheetDialog.setContentView(sheetView);
+
+        TextView tvName = sheetView.findViewById(R.id.bsPlaceName);
+        TextView tvRating = sheetView.findViewById(R.id.bsPlaceRating);
+        TextView tvCategory = sheetView.findViewById(R.id.bsPlaceCategory);
+        TextView tvDesc = sheetView.findViewById(R.id.bsPlaceDesc);
+        Button btnView = sheetView.findViewById(R.id.btnViewDetails);
+
+        tvName.setText(place.getName());
+        double rating = place.getRating() != null ? place.getRating() : 0.0;
+        tvRating.setText("★ " + rating);
+        tvCategory.setText(place.getCategory());
+        tvDesc.setText(place.getDescription());
+
+        btnView.setOnClickListener(v -> {
+            bottomSheetDialog.dismiss();
+            Intent intent = new Intent(MainActivityOSM.this,
+                    com.example.moresqplore.ui.details.PlaceDetailsActivity.class);
+            intent.putExtra("PLACE_DATA", place);
+            startActivity(intent);
+        });
+
+        bottomSheetDialog.show();
     }
 
     private FloatingActionButton fabMapStyle;
@@ -216,130 +336,9 @@ public class MainActivityOSM extends AppCompatActivity {
         mapView.invalidate();
     }
 
-    private void createSamplePlaces() {
-        // Casablanca
-        Place hassanMosque = new Place(1, "Hassan II Mosque",
-                "One of the largest mosques in the world with stunning oceanfront views",
-                "Casablanca", "Historical/Religious",
-                33.6080, -7.6328, 90,
-                "9:00 AM - 5:00 PM", true, 130);
-        hassanMosque.setAverageRating(4.8f);
-        hassanMosque.setTotalReviews(12500);
 
-        // Marrakech
-        Place jardinMajorelle = new Place(2, "Jardin Majorelle",
-                "Beautiful botanical garden created by Jacques Majorelle",
-                "Marrakech", "Garden/Cultural",
-                31.6414, -8.0037, 60,
-                "8:00 AM - 6:30 PM", true, 70);
-        jardinMajorelle.setAverageRating(4.6f);
-        jardinMajorelle.setTotalReviews(8900);
 
-        Place djemaaElFna = new Place(3, "Jemaa el-Fnaa",
-                "Famous main square with storytellers, musicians, and food stalls",
-                "Marrakech", "Cultural/Market",
-                31.6259, -7.9893, 120,
-                "Open 24/7", false, 0);
-        djemaaElFna.setAverageRating(4.5f);
-        djemaaElFna.setTotalReviews(15600);
 
-        Place bahiaPalace = new Place(4, "Bahia Palace",
-                "19th-century palace with beautiful gardens and Moroccan architecture",
-                "Marrakech", "Historical/Palace",
-                31.6215, -7.9815, 75,
-                "9:00 AM - 5:00 PM", true, 70);
-        bahiaPalace.setAverageRating(4.4f);
-        bahiaPalace.setTotalReviews(6700);
-
-        // Meknes & Volubilis
-        Place volubilis = new Place(5, "Volubilis",
-                "Ancient Roman ruins with well-preserved mosaics, UNESCO World Heritage",
-                "Meknes", "Historical/Archaeological",
-                34.0739, -5.5534, 120,
-                "8:30 AM - 6:30 PM", true, 70);
-        volubilis.setAverageRating(4.7f);
-        volubilis.setTotalReviews(4200);
-
-        // Fes
-        Place fesMedina = new Place(6, "Fes el-Bali",
-                "World's largest car-free urban area, medieval walled city",
-                "Fes", "Historical/Cultural",
-                34.0631, -4.9767, 180,
-                "Open 24/7", false, 0);
-        fesMedina.setAverageRating(4.6f);
-        fesMedina.setTotalReviews(9800);
-
-        // Chefchaouen
-        Place chefchaouen = new Place(7, "Chefchaouen",
-                "Picturesque blue city in the Rif Mountains",
-                "Chefchaouen", "Cultural/Scenic",
-                35.1689, -5.2636, 240,
-                "Open 24/7", false, 0);
-        chefchaouen.setAverageRating(4.9f);
-        chefchaouen.setTotalReviews(11200);
-
-        // Essaouira
-        Place essaouira = new Place(8, "Essaouira Medina",
-                "Charming coastal town with 18th-century fortified medina",
-                "Essaouira", "Coastal/Historical",
-                31.5125, -9.7700, 180,
-                "Open 24/7", false, 0);
-        essaouira.setAverageRating(4.7f);
-        essaouira.setTotalReviews(7800);
-
-        mPlaces.add(hassanMosque);
-        mPlaces.add(jardinMajorelle);
-        mPlaces.add(djemaaElFna);
-        mPlaces.add(bahiaPalace);
-        mPlaces.add(volubilis);
-        mPlaces.add(fesMedina);
-        mPlaces.add(chefchaouen);
-        mPlaces.add(essaouira);
-
-        addPlaceMarkers();
-    }
-
-    private void addPlaceMarkers() {
-        for (Place place : mPlaces) {
-            Marker marker = new Marker(mapView);
-            marker.setPosition(new GeoPoint(place.getLatitude(), place.getLongitude()));
-            marker.setTitle(place.getName());
-
-            // Create detailed snippet with rating
-            String snippet = place.getCity() + "\n" +
-                    "★ " + place.getAverageRating() + " (" + place.getTotalReviews() + " reviews)\n" +
-                    place.getDescription();
-            marker.setSnippet(snippet);
-
-            // Set anchor point
-            marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-
-            // Custom marker icon based on category
-            Drawable icon = getMarkerIconForCategory(place.getCategory());
-            if (icon != null) {
-                marker.setIcon(icon);
-            }
-
-            // Set text style
-            marker.setTextLabelFontSize(16);
-            marker.setTextLabelBackgroundColor(Color.WHITE);
-            marker.setTextLabelForegroundColor(Color.BLACK);
-
-            // Click listener
-            marker.setOnMarkerClickListener((m, map) -> {
-                // Open Details Activity
-                Intent intent = new Intent(MainActivityOSM.this,
-                        com.example.moresqplore.ui.details.PlaceDetailsActivity.class);
-                intent.putExtra("PLACE_DATA", place);
-                startActivity(intent);
-                return true;
-            });
-
-            mapView.getOverlays().add(marker);
-        }
-
-        mapView.invalidate();
-    }
 
     private Drawable getMarkerIconForCategory(String category) {
         // Create custom marker icons with Moroccan colors based on category

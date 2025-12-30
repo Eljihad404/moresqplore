@@ -66,4 +66,5 @@
     <color name="text_grey">@color/text_secondary</color>
     
     <color name="morocco_white">@color/morocco_cream</color>
+    <color name="morocco_red">@color/morocco_terracotta</color>
 </resources>

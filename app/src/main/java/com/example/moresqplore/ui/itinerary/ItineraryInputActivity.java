@@ -12,7 +12,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.moresqplore.R;
-import com.example.moresqplore.Place;
+import com.example.moresqplore.data.model.Place;
 import com.example.moresqplore.data.model.Itinerary;
 import com.example.moresqplore.data.repository.PlaceRepository;
 import com.example.moresqplore.data.service.ItineraryService;
@@ -121,11 +121,8 @@ public class ItineraryInputActivity extends AppCompatActivity {
         // Get available places
         placeRepository.getPlaces().observe(this, places -> {
             if (places != null && !places.isEmpty()) {
-                // Convert to old Place model (temporary)
-                List<Place> oldPlaces = convertToOldPlaceModel(places);
-
                 // Generate itinerary
-                itineraryService.generateItinerary(request, oldPlaces,
+                itineraryService.generateItinerary(request, places,
                         new ItineraryService.OnItineraryGeneratedListener() {
                             @Override
                             public void onSuccess(Itinerary itinerary) {
@@ -178,25 +175,5 @@ public class ItineraryInputActivity extends AppCompatActivity {
         if (radioLuxury.isChecked())
             return "luxury";
         return "comfort";
-    }
-
-    // Temporary conversion method - will be removed when Place model is unified
-    private List<Place> convertToOldPlaceModel(
-            List<com.example.moresqplore.data.model.Place> newPlaces) {
-        List<Place> oldPlaces = new ArrayList<>();
-
-        for (com.example.moresqplore.data.model.Place newPlace : newPlaces) {
-            if (newPlace.getLocation() != null) {
-                Place oldPlace = new Place(
-                        newPlace.getName(),
-                        newPlace.getLocation().getLatitude(),
-                        newPlace.getLocation().getLongitude());
-                // Set additional fields if available
-                // This is a simplified conversion
-                oldPlaces.add(oldPlace);
-            }
-        }
-
-        return oldPlaces;
     }
 }
