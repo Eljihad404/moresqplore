@@ -159,6 +159,7 @@ public class MainActivityOSM extends AppCompatActivity {
         TextView tvRating = sheetView.findViewById(R.id.bsPlaceRating);
         TextView tvCategory = sheetView.findViewById(R.id.bsPlaceCategory);
         TextView tvDesc = sheetView.findViewById(R.id.bsPlaceDesc);
+        ImageView imgPlace = sheetView.findViewById(R.id.bsPlaceImage);
         Button btnView = sheetView.findViewById(R.id.btnViewDetails);
 
         tvName.setText(place.getName());
@@ -166,6 +167,19 @@ public class MainActivityOSM extends AppCompatActivity {
         tvRating.setText("★ " + rating);
         tvCategory.setText(place.getCategory());
         tvDesc.setText(place.getDescription());
+
+        // Load image with Glide
+        if (place.getImageUrl() != null && !place.getImageUrl().isEmpty()) {
+            com.bumptech.glide.Glide.with(this)
+                    .load(place.getImageUrl())
+                    .placeholder(R.drawable.ic_launcher_background)
+                    .error(R.drawable.ic_launcher_background)
+                    .centerCrop()
+                    .into(imgPlace);
+        } else {
+            // Placeholder based on category or city
+            imgPlace.setImageResource(R.drawable.casablanca); // Default fallback
+        }
 
         btnView.setOnClickListener(v -> {
             bottomSheetDialog.dismiss();

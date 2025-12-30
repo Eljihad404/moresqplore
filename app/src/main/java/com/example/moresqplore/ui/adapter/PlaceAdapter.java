@@ -98,13 +98,22 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.PlaceViewHol
 
             // Load Image
             if (place.getThumbnailUrl() != null && !place.getThumbnailUrl().isEmpty()) {
+                // Create a GlideUrl with headers to avoid 429 errors from Wikimedia
+                com.bumptech.glide.load.model.GlideUrl glideUrl = new com.bumptech.glide.load.model.GlideUrl(
+                    place.getThumbnailUrl(), 
+                    new com.bumptech.glide.load.model.LazyHeaders.Builder()
+                        .addHeader("User-Agent", "MoresqploreApp/1.0 (Android; +https://github.com/Eljihad404/moresqplore)")
+                        .build()
+                );
+
                 Glide.with(itemView.getContext())
-                        .load(place.getThumbnailUrl())
-                        .placeholder(R.drawable.bg_chat_bubble_assistant) // Use a valid drawable
+                        .load(glideUrl)
+                        .placeholder(android.R.drawable.ic_menu_gallery)
+                        .error(android.R.drawable.ic_menu_report_image)
                         .centerCrop()
                         .into(imgThumbnail);
             } else {
-                 imgThumbnail.setImageResource(R.drawable.bg_chat_bubble_assistant);
+                 imgThumbnail.setImageResource(android.R.drawable.ic_menu_gallery);
             }
         }
     }

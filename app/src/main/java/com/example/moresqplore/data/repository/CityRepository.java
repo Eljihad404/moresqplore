@@ -62,23 +62,39 @@ public class CityRepository {
     private void fetchFromSupabase(String cityName, CityCallback callback) {
         // 2. Fetch City Details
         String authHeader = "Bearer " + SUPABASE_KEY;
-        supabaseApi.getCityByName(SUPABASE_KEY, authHeader, "eq." + cityName, "*").enqueue(new Callback<List<City>>() {
+        // Fetch all fields including 'location' (PostGIS GeoJSON)
+        // We parse 'location' locally in City.java to avoid needing server-side computed columns
+        String selectQuery = "*";
+        
+        supabaseApi.getCityByName(SUPABASE_KEY, authHeader, "eq." + cityName, selectQuery).enqueue(new Callback<List<City>>() {
             @Override
             public void onResponse(Call<List<City>> call, Response<List<City>> response) {
                 if (response.isSuccessful() && response.body() != null && !response.body().isEmpty()) {
                     City city = response.body().get(0);
+                    Log.d("CityRepository", "Fetched City: " + city.getName() + ", ID: " + city.getId() + ", Desc: " + (city.getDescription() != null ? "Present" : "NULL"));
                     
                     // 3. Fetch History
                     fetchHistoryForCity(city, callback);
                 } else {
+                    String errorMsg = "City not found in Supabase: " + response.message();
+                    try {
+                        if (response.errorBody() != null) {
+                            String errorBody = response.errorBody().string();
+                            Log.e("CityRepository", "Supabase Error Body: " + errorBody);
+                            errorMsg += " | Details: " + errorBody;
+                        }
+                    } catch (Exception e) { e.printStackTrace(); }
+                    
+                    Log.e("CityRepository", errorMsg);
                     if (callback != null) {
-                        callback.onError(new Exception("City not found in Supabase: " + response.message()));
+                        callback.onError(new Exception(errorMsg));
                     }
                 }
             }
 
             @Override
             public void onFailure(Call<List<City>> call, Throwable t) {
+                Log.e("CityRepository", "Network/Parsing error: " + t.getMessage(), t);
                 if (callback != null) {
                     callback.onError(new Exception("Network error: " + t.getMessage()));
                 }

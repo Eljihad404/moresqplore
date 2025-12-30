@@ -27,6 +27,8 @@ public class CityDetailActivity extends AppCompatActivity {
     private LinearLayout timelineContainer;
     private Handler mainHandler = new Handler(Looper.getMainLooper());
 
+    private ImageView imgCityHero;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +43,7 @@ public class CityDetailActivity extends AppCompatActivity {
         // 2. Initialize Views
         tvCityName = findViewById(R.id.tvCityName);
         tvCityDescription = findViewById(R.id.tvCityDescription);
-        ImageView imgCityHero = findViewById(R.id.imgCityHero);
+        imgCityHero = findViewById(R.id.imgCityHero);
         timelineContainer = findViewById(R.id.timelineContainer);
         MaterialCardView cardRoadmap = findViewById(R.id.cardRoadmap);
         MaterialCardView cardAI = findViewById(R.id.cardAI);
@@ -68,7 +70,59 @@ public class CityDetailActivity extends AppCompatActivity {
         // 5. Click Listeners
         cardRoadmap.setOnClickListener(v -> {
             Intent intent = new Intent(CityDetailActivity.this, RoadmapActivity.class);
-            intent.putExtra("CITY_NAME", tvCityName.getText().toString());
+            final String selectedCity = tvCityName.getText().toString();
+            intent.putExtra("CITY_NAME", selectedCity);
+            
+            // Try to get coordinates from city data, or use fallback
+            Double cityLat = null;
+            Double cityLng = null;
+            
+            if (currentCity != null && currentCity.getLatitude() != null && currentCity.getLongitude() != null) {
+                cityLat = currentCity.getLatitude();
+                cityLng = currentCity.getLongitude();
+            } else {
+                // Fallback coordinates for major cities
+                switch (selectedCity) {
+                    case "Casablanca":
+                        cityLat = 33.5731;
+                        cityLng = -7.5898;
+                        break;
+                    case "Marrakech":
+                        cityLat = 31.6295;
+                        cityLng = -7.9811;
+                        break;
+                    case "Rabat":
+                        cityLat = 34.0209;
+                        cityLng = -6.8416;
+                        break;
+                    case "Fez":
+                        cityLat = 34.0181;
+                        cityLng = -5.0078;
+                        break;
+                    case "Tanger":
+                        cityLat = 35.7595;
+                        cityLng = -5.8340;
+                        break;
+                    case "Agadir":
+                        cityLat = 30.4278;
+                        cityLng = -9.5981;
+                        break;
+                    case "Chefchaouen":
+                        cityLat = 35.1689;
+                        cityLng = -5.2636;
+                        break;
+                    case "Essaouira":
+                        cityLat = 31.5125;
+                        cityLng = -9.7700;
+                        break;
+                }
+            }
+            
+            if (cityLat != null && cityLng != null) {
+                intent.putExtra("CITY_LAT", cityLat);
+                intent.putExtra("CITY_LNG", cityLng);
+            }
+            
             startActivity(intent);
         });
 
@@ -81,15 +135,68 @@ public class CityDetailActivity extends AppCompatActivity {
         });
     }
 
+    private City currentCity; // Store loaded city
+
     private void loadCityData(String cityName) {
         tvCityDescription.setText("Loading city details...");
         
         cityRepository.getCityData(cityName, new CityRepository.CityCallback() {
             @Override
             public void onSuccess(City city) {
+                currentCity = city; // Store for usage in click listeners
                 // Ensure UI updates happen on Main Thread
                 mainHandler.post(() -> {
                     tvCityDescription.setText(city.getDescription());
+                    
+                    // Load Hero Image
+                    // Load Hero Image (Local Drawables)
+                    switch (city.getName()) {
+                        case "Casablanca":
+                            imgCityHero.setImageResource(R.drawable.casablanca);
+                            break;
+                        case "Marrakech":
+                            imgCityHero.setImageResource(R.drawable.marrakech);
+                            break;
+                        case "Tanger":
+                            imgCityHero.setImageResource(R.drawable.tanger);
+                            break;
+                        case "Rabat":
+                            imgCityHero.setImageResource(R.drawable.rabat);
+                            break;
+                        case "Agadir":
+                            imgCityHero.setImageResource(R.drawable.agadir);
+                            break;
+                        case "Fez":
+                            imgCityHero.setImageResource(R.drawable.fez);
+                            break;
+                        case "Chefchaouen":
+                            imgCityHero.setImageResource(R.drawable.chefchaouen);
+                            break;
+                         case "Essaouira":
+                            imgCityHero.setImageResource(R.drawable.essaouira);
+                            break;
+                        default:
+                             // Try to load from URL if not in local list, or fallback
+                             if (city.getCoverImageUrl() != null && !city.getCoverImageUrl().isEmpty()) {
+                                // Create a GlideUrl with headers to avoid 429 errors
+                                com.bumptech.glide.load.model.GlideUrl glideUrl = new com.bumptech.glide.load.model.GlideUrl(
+                                    city.getCoverImageUrl(), 
+                                    new com.bumptech.glide.load.model.LazyHeaders.Builder()
+                                        .addHeader("User-Agent", "MoresqploreApp/1.0 (Android; +https://github.com/Eljihad404/moresqplore)")
+                                        .build()
+                                );
+
+                                com.bumptech.glide.Glide.with(CityDetailActivity.this)
+                                    .load(glideUrl)
+                                    .placeholder(android.R.drawable.ic_menu_gallery)
+                                    .error(android.R.drawable.ic_menu_report_image)
+                                    .centerCrop()
+                                    .into(imgCityHero);
+                             } else {
+                                imgCityHero.setImageResource(android.R.drawable.ic_menu_gallery);
+                             }
+                    }
+                    
                     populateTimeline(city.getHistoryEvents());
                 });
             }
@@ -100,7 +207,7 @@ public class CityDetailActivity extends AppCompatActivity {
                     tvCityDescription.setText("Failed to load details. Please check your connection.");
                     Toast.makeText(CityDetailActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     
-                    // Fallback to mock data if needed, or just leave as is
+                    // Fallback to mock data if needed
                     if ("Casablanca".equals(cityName)) {
                         tvCityDescription.setText("Casablanca is the economic lung of the Kingdom... (Offline Fallback)");
                     }
@@ -129,9 +236,17 @@ public class CityDetailActivity extends AppCompatActivity {
         if (recyclerPlaces != null) {
             // Setup Adapter
             com.example.moresqplore.ui.adapter.PlaceAdapter adapter = new com.example.moresqplore.ui.adapter.PlaceAdapter(place -> {
-                // Handle Click
-                Intent intent = new Intent(CityDetailActivity.this, PlaceDetailActivity.class);
-                intent.putExtra("PLACE_ID", place.getId());
+                // Navigate to map with place coordinates
+                Intent intent = new Intent(CityDetailActivity.this, RoadmapActivity.class);
+                intent.putExtra("CITY_NAME", place.getCity());
+                
+                // Pass place coordinates if available
+                if (place.getLatitude() != null && place.getLongitude() != null) {
+                    intent.putExtra("PLACE_LAT", place.getLatitude());
+                    intent.putExtra("PLACE_LNG", place.getLongitude());
+                    intent.putExtra("PLACE_NAME", place.getName());
+                }
+                
                 startActivity(intent);
             });
             recyclerPlaces.setAdapter(adapter);

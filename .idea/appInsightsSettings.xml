@@ -10,9 +10,9 @@
               <option name="connection">
                 <ConnectionSetting>
                   <option name="appId" value="com.example.moresqplore" />
-                  <option name="mobileSdkAppId" value="1:581660644784:android:9e21862d31a96eeeca7275" />
-                  <option name="projectId" value="moresqplore-hafid" />
-                  <option name="projectNumber" value="581660644784" />
+                  <option name="mobileSdkAppId" value="1:586375769938:android:6a5cd17c8d14b2afe6d48b" />
+                  <option name="projectId" value="moresqplore" />
+                  <option name="projectNumber" value="586375769938" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

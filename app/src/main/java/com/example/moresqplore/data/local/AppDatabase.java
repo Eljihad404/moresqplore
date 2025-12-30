@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 import com.example.moresqplore.data.model.City;
 
-@Database(entities = {City.class}, version = 2, exportSchema = false)
+@Database(entities = {City.class}, version = 4, exportSchema = false)
 @TypeConverters({DataConverters.class})
 public abstract class AppDatabase extends RoomDatabase {
     public abstract CityDao cityDao();
