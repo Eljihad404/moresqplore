@@ -157,6 +157,13 @@
             android:theme="@style/Theme.MoresQplore"
             android:label="Budget Tracker" />
 
+        <!-- Add Expense Activity -->
+        <activity
+            android:name=".ui.budget.AddExpenseActivity"
+            android:exported="false"
+            android:theme="@style/Theme.MoresQplore"
+            android:label="Add Expense" />
+
     </application>
 
 </manifest>

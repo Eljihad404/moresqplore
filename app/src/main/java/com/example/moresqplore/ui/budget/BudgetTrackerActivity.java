@@ -1,5 +1,6 @@
 package com.example.moresqplore.ui.budget;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -53,6 +54,13 @@ public class BudgetTrackerActivity extends AppCompatActivity {
         loadData();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Reload data when returning from AddExpenseActivity
+        loadData();
+    }
+
     private void initializeViews() {
         tvTripName = findViewById(R.id.tvTripName);
         tvTotalBudget = findViewById(R.id.tvTotalBudget);
@@ -86,8 +94,8 @@ public class BudgetTrackerActivity extends AppCompatActivity {
 
     private void setupListeners() {
         fabAddExpense.setOnClickListener(v -> {
-            // TODO: Open add expense activity
-            Toast.makeText(this, "Add expense coming soon", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(BudgetTrackerActivity.this, AddExpenseActivity.class);
+            startActivity(intent);
         });
     }
 

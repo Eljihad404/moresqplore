@@ -2,6 +2,7 @@ package com.example.moresqplore.ui.itinerary;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.RadioButton;
@@ -47,16 +48,26 @@ public class ItineraryInputActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_itinerary_input);
 
-        initializeViews();
-        setupListeners();
+        try {
+            setContentView(R.layout.activity_itinerary_input);
 
-        itineraryService = new ItineraryService();
-        placeRepository = PlaceRepository.getInstance();
+            initializeViews();
+            setupListeners();
 
-        // Load places data
-        placeRepository.fetchAllPlaces();
+            itineraryService = new ItineraryService();
+            placeRepository = PlaceRepository.getInstance();
+
+            // Load places data
+            if (placeRepository != null) {
+                placeRepository.fetchAllPlaces();
+            }
+        } catch (Exception e) {
+            Log.e("ItineraryInput", "Error in onCreate: " + e.getMessage(), e);
+            Toast.makeText(this, "Error loading itinerary planner: " + e.getMessage(),
+                    Toast.LENGTH_LONG).show();
+            finish();
+        }
     }
 
     private void initializeViews() {
@@ -71,27 +82,45 @@ public class ItineraryInputActivity extends AppCompatActivity {
         radioLuxury = findViewById(R.id.radioLuxury);
         btnGenerate = findViewById(R.id.btnGenerate);
 
+        // Check for null views
+        if (sliderBudget == null)
+            Log.e("ItineraryInput", "sliderBudget is null!");
+        if (sliderDuration == null)
+            Log.e("ItineraryInput", "sliderDuration is null!");
+        if (chipGroupInterests == null)
+            Log.e("ItineraryInput", "chipGroupInterests is null!");
+        if (btnGenerate == null)
+            Log.e("ItineraryInput", "btnGenerate is null!");
+
         // Setup city spinner
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(
-                this, android.R.layout.simple_spinner_item, CITIES);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerCity.setAdapter(adapter);
+        if (spinnerCity != null) {
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                    this, android.R.layout.simple_spinner_item, CITIES);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinnerCity.setAdapter(adapter);
+        }
     }
 
     private void setupListeners() {
         // Budget slider
-        sliderBudget.addOnChangeListener((slider, value, fromUser) -> {
-            tvBudgetValue.setText(String.format("%.0f MAD", value));
-        });
+        if (sliderBudget != null && tvBudgetValue != null) {
+            sliderBudget.addOnChangeListener((slider, value, fromUser) -> {
+                tvBudgetValue.setText(String.format("%.0f MAD", value));
+            });
+        }
 
         // Duration slider
-        sliderDuration.addOnChangeListener((slider, value, fromUser) -> {
-            int days = (int) value;
-            tvDurationValue.setText(days + (days == 1 ? " Day" : " Days"));
-        });
+        if (sliderDuration != null && tvDurationValue != null) {
+            sliderDuration.addOnChangeListener((slider, value, fromUser) -> {
+                int days = (int) value;
+                tvDurationValue.setText(days + (days == 1 ? " Day" : " Days"));
+            });
+        }
 
         // Generate button
-        btnGenerate.setOnClickListener(v -> generateItinerary());
+        if (btnGenerate != null) {
+            btnGenerate.setOnClickListener(v -> generateItinerary());
+        }
     }
 
     private void generateItinerary() {
