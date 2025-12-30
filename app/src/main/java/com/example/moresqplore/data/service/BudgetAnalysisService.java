@@ -12,15 +12,23 @@ import java.util.Map;
  */
 public class BudgetAnalysisService {
 
-    // Fixed conversion rates for MVP (MAD as base)
-    private static final Map<String, Double> CONVERSION_RATES = new HashMap<String, Double>() {
-        {
-            put("MAD", 1.0);
-            put("USD", 10.0); // 1 USD = 10 MAD
-            put("EUR", 11.0); // 1 EUR = 11 MAD
-            put("GBP", 13.0); // 1 GBP = 13 MAD
-        }
-    };
+    private ExchangeRateService exchangeRateService;
+
+    public BudgetAnalysisService() {
+        this.exchangeRateService = new ExchangeRateService();
+        // Fetch rates on initialization
+        exchangeRateService.fetchRates(new ExchangeRateService.ExchangeRateCallback() {
+            @Override
+            public void onSuccess(Map<String, Double> rates) {
+                // Rates loaded successfully
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+                // Will use fallback rates
+            }
+        });
+    }
 
     /**
      * Convert amount to MAD using real exchange rates

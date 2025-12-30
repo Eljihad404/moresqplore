@@ -40,7 +40,7 @@ public class PriceAggregationService {
         // Generate offers from hotel providers
         for (BookingProvider provider : BookingProvider.values()) {
             if (provider.getItemType().equals("HOTEL")) {
-                PriceOffer offer = generateHotelOffer(provider, basePrice);
+                PriceOffer offer = generateHotelOffer(provider, basePrice, city, checkIn, checkOut);
                 comparison.addOffer(offer);
             }
         }
@@ -63,7 +63,7 @@ public class PriceAggregationService {
         // Generate offers from flight providers
         for (BookingProvider provider : BookingProvider.values()) {
             if (provider.getItemType().equals("FLIGHT")) {
-                PriceOffer offer = generateFlightOffer(provider, basePrice);
+                PriceOffer offer = generateFlightOffer(provider, basePrice, route, date);
                 comparison.addOffer(offer);
             }
         }
@@ -87,7 +87,7 @@ public class PriceAggregationService {
         // Generate offers from activity providers
         for (BookingProvider provider : BookingProvider.values()) {
             if (provider.getItemType().equals("ACTIVITY")) {
-                PriceOffer offer = generateActivityOffer(provider, basePrice);
+                PriceOffer offer = generateActivityOffer(provider, basePrice, city, date);
                 comparison.addOffer(offer);
             }
         }
@@ -98,7 +98,8 @@ public class PriceAggregationService {
     /**
      * Generate a hotel offer with realistic variation
      */
-    private PriceOffer generateHotelOffer(BookingProvider provider, double basePrice) {
+    private PriceOffer generateHotelOffer(BookingProvider provider, double basePrice,
+            String city, String checkIn, String checkOut) {
         // Add provider-specific variation (-15% to +20%)
         double variation = 0.85 + (random.nextDouble() * 0.35);
         double price = basePrice * variation;
@@ -132,7 +133,8 @@ public class PriceAggregationService {
     /**
      * Generate a flight offer with realistic variation
      */
-    private PriceOffer generateFlightOffer(BookingProvider provider, double basePrice) {
+    private PriceOffer generateFlightOffer(BookingProvider provider, double basePrice,
+            String route, String date) {
         // Flights have less variation (-10% to +15%)
         double variation = 0.90 + (random.nextDouble() * 0.25);
         double price = basePrice * variation;
@@ -163,7 +165,8 @@ public class PriceAggregationService {
     /**
      * Generate an activity offer with realistic variation
      */
-    private PriceOffer generateActivityOffer(BookingProvider provider, double basePrice) {
+    private PriceOffer generateActivityOffer(BookingProvider provider, double basePrice,
+            String city, String date) {
         // Activities have more variation (-20% to +30%)
         double variation = 0.80 + (random.nextDouble() * 0.50);
         double price = basePrice * variation;
