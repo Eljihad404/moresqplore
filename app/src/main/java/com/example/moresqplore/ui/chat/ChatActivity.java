@@ -38,7 +38,10 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void setupRecyclerView() {
-        chatAdapter = new ChatAdapter();
+        // Initialize Markwon for markdown rendering
+        io.noties.markwon.Markwon markwon = io.noties.markwon.Markwon.create(this);
+        
+        chatAdapter = new ChatAdapter(markwon);
         binding.recyclerViewMessages.setLayoutManager(
                 new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         binding.recyclerViewMessages.setAdapter(chatAdapter);

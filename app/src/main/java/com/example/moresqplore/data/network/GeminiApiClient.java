@@ -6,7 +6,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-// Add Log import at the top
 import android.util.Log;
 
 /**
@@ -114,6 +113,7 @@ public class GeminiApiClient {
      * Clears the cached instances and API key.
      * Useful for testing or configuration changes.
      */
+    @SuppressWarnings("unused")
     public static synchronized void reset() {
         synchronized (GeminiApiClient.class) {
             retrofit = null;

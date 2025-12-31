@@ -218,24 +218,24 @@
         app:borderWidth="0dp"
         android:contentDescription="Local Guides" />
 
-    <!-- Price Comparison - Extended FAB -->
+    <!-- Budget Tracker - Extended FAB -->
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/fabPriceComparison"
+        android:id="@+id/fabBudgetTracker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|start"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="160dp"
-        android:text="Compare Prices"
+        android:text="Budget Tracker"
         android:textColor="@color/white"
         android:fontFamily="sans-serif-medium"
-        app:icon="@android:drawable/ic_menu_view"
+        app:icon="@android:drawable/ic_menu_save"
         app:iconTint="@color/white"
-        app:backgroundTint="@color/morocco_blue"
+        app:backgroundTint="@color/morocco_green"
         app:elevation="8dp"
         app:borderWidth="0dp"
-        android:contentDescription="Price Comparison" />
+        android:contentDescription="Budget Tracker" />
 
     <!-- Chat Assistant - Extended FAB with Moroccan Style -->
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton

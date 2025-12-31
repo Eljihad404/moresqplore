@@ -118,4 +118,8 @@ dependencies {
 
     // Material Design 3
     implementation("com.google.android.material:material:1.12.0")
+    
+    // Markwon for Markdown rendering in chat
+    implementation("io.noties.markwon:core:4.6.2")
+    implementation("io.noties.markwon:html:4.6.2")
 }

@@ -195,7 +195,8 @@ public class MainActivityOSM extends AppCompatActivity {
     private FloatingActionButton fabMapStyle;
     private com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton fabChatAssistant;
     private com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton fabItineraryPlanner;
-    private com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton fabPriceComparison;
+    private com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton fabPriceComparison; // Kept as variable name or change to fabBudget? Better change.
+    private com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton fabBudgetTracker;
     private com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton fabGuideMarketplace;
     private HorizontalScrollView categoryScrollView;
     private ImageView filterIcon;
@@ -208,7 +209,7 @@ public class MainActivityOSM extends AppCompatActivity {
         fabMapStyle = findViewById(R.id.fabMapStyle);
         fabChatAssistant = findViewById(R.id.fabChatAssistant);
         fabItineraryPlanner = findViewById(R.id.fabItineraryPlanner);
-        fabPriceComparison = findViewById(R.id.fabPriceComparison);
+        fabBudgetTracker = findViewById(R.id.fabBudgetTracker);
         fabGuideMarketplace = findViewById(R.id.fabGuideMarketplace);
 
         // Initialize search and filter views
@@ -246,10 +247,9 @@ public class MainActivityOSM extends AppCompatActivity {
             startActivity(intent);
         });
 
-        // Price comparison
-        fabPriceComparison.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivityOSM.this,
-                    com.example.moresqplore.ui.prices.PriceComparisonActivity.class);
+        // Budget Tracker
+        fabBudgetTracker.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivityOSM.this, com.example.moresqplore.ui.budget.BudgetTrackerActivity.class);
             startActivity(intent);
         });
 

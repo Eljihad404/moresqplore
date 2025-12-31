@@ -8,9 +8,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.moresqplore.R;
 import com.example.moresqplore.data.model.ChatMessage;
+import io.noties.markwon.Markwon;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -22,6 +22,11 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<ChatMessage> messages = new ArrayList<>();
     private final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
+    private Markwon markwon;
+
+    public ChatAdapter(Markwon markwon) {
+        this.markwon = markwon;
+    }
 
     public void setMessages(List<ChatMessage> messages) {
         this.messages = messages != null ? messages : new ArrayList<>();
@@ -63,9 +68,9 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         ChatMessage message = messages.get(position);
 
         if (holder instanceof UserMessageHolder) {
-            ((UserMessageHolder) holder).bind(message);
+            ((UserMessageHolder) holder).bind(message, markwon);
         } else if (holder instanceof AssistantMessageHolder) {
-            ((AssistantMessageHolder) holder).bind(message);
+            ((AssistantMessageHolder) holder).bind(message, markwon);
         }
     }
 
@@ -84,8 +89,13 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             textTime = itemView.findViewById(R.id.textTime);
         }
 
-        void bind(ChatMessage message) {
-            textMessage.setText(message.getContent());
+        void bind(ChatMessage message, Markwon markwon) {
+            // Use Markwon to render markdown
+            if (markwon != null) {
+                markwon.setMarkdown(textMessage, message.getContent());
+            } else {
+                textMessage.setText(message.getContent());
+            }
             SimpleDateFormat format = new SimpleDateFormat("HH:mm", Locale.getDefault());
             textTime.setText(format.format(message.getTimestamp()));
         }
@@ -101,8 +111,13 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             textTime = itemView.findViewById(R.id.textTime);
         }
 
-        void bind(ChatMessage message) {
-            textMessage.setText(message.getContent());
+        void bind(ChatMessage message, Markwon markwon) {
+            // Use Markwon to render markdown
+            if (markwon != null) {
+                markwon.setMarkdown(textMessage, message.getContent());
+            } else {
+                textMessage.setText(message.getContent());
+            }
             SimpleDateFormat format = new SimpleDateFormat("HH:mm", Locale.getDefault());
             textTime.setText(format.format(message.getTimestamp()));
         }

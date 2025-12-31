@@ -4,9 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginVertical="6dp"
-    android:paddingStart="16dp"
-    android:paddingEnd="48dp">
+    android:layout_marginVertical="8dp"
+    android:paddingStart="12dp"
+    android:paddingEnd="64dp">
 
     <!-- Assistant Avatar -->
     <ImageView
@@ -21,17 +21,19 @@
     <!-- Assistant Message Bubble -->
     <LinearLayout
         android:id="@+id/messageBubble"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="4dp"
         android:background="@drawable/bg_chat_bubble_assistant"
         android:orientation="vertical"
-        android:paddingHorizontal="16dp"
-        android:paddingVertical="12dp"
+        android:paddingHorizontal="18dp"
+        android:paddingVertical="14dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/imageAvatar"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_max="wrap"
-        app:layout_constraintWidth_percent="0.8">
+        app:layout_constraintWidth_default="wrap"
+        app:layout_constraintWidth_max="wrap">
 
         <TextView
             android:id="@+id/textMessage"
@@ -39,16 +41,17 @@
             android:layout_height="wrap_content"
             android:textColor="@color/chat_text_assistant"
             android:textSize="15sp"
-            android:lineSpacingMultiplier="1.1" />
+            android:lineSpacingMultiplier="1.2" />
 
         <TextView
             android:id="@+id/textTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="6dp"
             android:textColor="@color/text_secondary"
-            android:textSize="10sp" />
+            android:textSize="10sp"
+            android:alpha="0.7" />
 
     </LinearLayout>
 

@@ -19,10 +19,14 @@
     </style>
 
     <!-- No Action Bar Theme for Landing Page -->
-    <style name="Theme.Moresqplore.NoActionBar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/primary</item>
-        <item name="colorPrimaryDark">@color/primary_dark</item>
-        <item name="colorAccent">@color/accent</item>
+    <!-- No Action Bar Theme for Landing Page -->
+    <style name="Theme.Moresqplore.NoActionBar" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/morocco_blue</item>
+        <item name="colorPrimaryVariant">@color/primary_dark</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/morocco_terracotta</item>
+        <item name="colorSecondaryVariant">@color/morocco_sand</item>
+        <item name="colorOnSecondary">@color/white</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
