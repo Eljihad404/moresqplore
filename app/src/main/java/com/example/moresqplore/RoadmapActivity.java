@@ -85,6 +85,12 @@ public class RoadmapActivity extends AppCompatActivity implements OnMapReadyCall
         // 4.6 Setup Budget Tracker Button
         setupBudgetTrackerButton();
         
+        // 4.7 Setup Guide Marketplace Button
+        setupGuidesButton();
+        
+        // 4.8 Setup Chat Assistant Button
+        setupChatButton();
+        
         // 5. Setup Search
         android.widget.EditText searchEditText = findViewById(R.id.searchEditText);
         searchEditText.setOnEditorActionListener((v, actionId, event) -> {
@@ -127,6 +133,24 @@ public class RoadmapActivity extends AppCompatActivity implements OnMapReadyCall
                 findViewById(R.id.fabBudgetTracker);
         fabBudget.setOnClickListener(v -> {
             Intent intent = new Intent(RoadmapActivity.this, com.example.moresqplore.ui.budget.BudgetTrackerActivity.class);
+            startActivity(intent);
+        });
+    }
+
+    private void setupGuidesButton() {
+        com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton fabGuides =
+                findViewById(R.id.fabGuideMarketplace);
+        fabGuides.setOnClickListener(v -> {
+            Intent intent = new Intent(RoadmapActivity.this, com.example.moresqplore.ui.guides.GuideMarketplaceActivity.class);
+            startActivity(intent);
+        });
+    }
+
+    private void setupChatButton() {
+        com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton fabChat =
+                findViewById(R.id.fabChatAssistant);
+        fabChat.setOnClickListener(v -> {
+            Intent intent = new Intent(RoadmapActivity.this, com.example.moresqplore.ui.chat.ChatActivity.class);
             startActivity(intent);
         });
     }
@@ -308,16 +332,20 @@ public class RoadmapActivity extends AppCompatActivity implements OnMapReadyCall
             return;
         }
         
+        Log.d(TAG, "Requesting fresh location updates...");
         // Request a fresh location update
         com.google.android.gms.location.LocationRequest locationRequest = 
                 com.google.android.gms.location.LocationRequest.create();
         locationRequest.setPriority(com.google.android.gms.location.LocationRequest.PRIORITY_HIGH_ACCURACY);
+        locationRequest.setInterval(10000); // 10 seconds
+        locationRequest.setFastestInterval(5000); // 5 seconds
         locationRequest.setNumUpdates(1);
         
         fusedLocationClient.requestLocationUpdates(locationRequest, 
                 new com.google.android.gms.location.LocationCallback() {
                     @Override
                     public void onLocationResult(com.google.android.gms.location.LocationResult locationResult) {
+                        Log.d(TAG, "onLocationResult received");
                         if (locationResult != null) {
                             Location location = locationResult.getLastLocation();
                             if (location != null) {
@@ -329,11 +357,25 @@ public class RoadmapActivity extends AppCompatActivity implements OnMapReadyCall
                                                     currentLocation, 15));
                                 }
                                 Toast.makeText(RoadmapActivity.this, "Location found!", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Log.w(TAG, "onLocationResult: location is null");
                             }
+                        } else {
+                            Log.w(TAG, "onLocationResult: result is null");
                         }
                         fusedLocationClient.removeLocationUpdates(this);
                     }
-                }, null);
+
+                    @Override
+                    public void onLocationAvailability(com.google.android.gms.location.LocationAvailability availability) {
+                        super.onLocationAvailability(availability);
+                        Log.d(TAG, "Location Availability: " + availability.isLocationAvailable());
+                    }
+                }, android.os.Looper.getMainLooper())
+                .addOnFailureListener(e -> {
+                    Log.e(TAG, "Failed to request location updates", e);
+                    Toast.makeText(RoadmapActivity.this, "Failed to request location: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                });
     }
     
     @Override
